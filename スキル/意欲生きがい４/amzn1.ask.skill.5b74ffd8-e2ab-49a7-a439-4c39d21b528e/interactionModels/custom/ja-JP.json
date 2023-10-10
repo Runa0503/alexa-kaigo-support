@@ -1,0 +1,37 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "OrderIntent",
+          "samples": [
+            "意欲生きがいの記録",
+            "意欲生きがいの記録をしたいです",
+            "生きがい",
+            "意欲",
+            "意欲生きがい"
+          ]
+        }
+      ],
+      "types": [],
+      "invocationName": "意欲生きがい"
+    }
+  }
+}
