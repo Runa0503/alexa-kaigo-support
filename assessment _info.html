@@ -400,7 +400,7 @@ function populateTable(data) {
       row.append("<td>" + item.item_id.S + "</td>"); // 項目ID
       row.append("<td>" + item.question.S + "</td>"); // 質問内容
       row.append("<td>" + item.yesno.S + "</td>"); // yesno
-      row.append("<td>" + item.contents.S +"・"+ item.frequency.S + "</td>"); //回答内容
+      row.append("<td>" + item.contents.SS[0] +"・"+ item.frequency.S + "</td>"); //回答内容
       row.append("<td>" + item.timestamp.S + "</td>"); // 日付
       row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
 
