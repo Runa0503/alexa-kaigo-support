@@ -331,126 +331,63 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
+              <th scope="col">記録者</th>
+              <th scope="col">サービス</th>
+              <th scope="col">計画通り実施できたか</th>
+              <th scope="col">利用者の状況</th>
+              <th scope="col">サービス実施の効果</th>
+              <th scope="col">計画変更の有無</th>
+              <th scope="col">日付</th>
             </tr>
           </thead>
+          
+<script>
+  $(document).ready(function () {
+  var tableBody = $("#data-table tbody");
+  var requestData = {
+      "OperationType": "SCAN"// リクエストデータをここに設定
+  };
+  
+  // Ajaxリクエストを送信
+  $.ajax({
+      url: "https://r4coejm7ag.execute-api.us-east-2.amazonaws.com/sa_POST/servicedelivery",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(requestData),
+      success: function (data) {
+          populateTable(data);
+      },
+      error: function (error) {
+          console.error("データの取得に失敗しました: " + error);
+      }
+  });
+
+function populateTable(data) {
+  for (var i = 0; i < data.scanData.Items.length; i++) {
+      var item = data.scanData.Items[i];
+      var row = $("<tr>");
+
+      // 各データプロパティをセルに追加
+      //row.append("<td>" + item.id.N + "</td>"); // 連番ID
+      row.append("<td>" + item.manager_id.S + "</td>"); //記録者
+      row.append("<td>" + item.service.S + "</td>"); // サービス
+      row.append("<td>" + item.service_situation.S + "</td>"); // 提供状況
+      row.append("<td>" + item.user_situation.S + "</td>"); //利用者状況
+      row.append("<td>" + item.effects_service.S + "</td>"); //効果
+    　row.append("<td>" + item.necessity_planchange.S + "</td>"); //計画変更
+      row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+      row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+
+      // 他の列を追加する場合は、ここに追加
+
+      tableBody.append(row);
+  }
+}
+});
+      
+</script>
+          
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
           </tbody>
         </table>
       </div>
