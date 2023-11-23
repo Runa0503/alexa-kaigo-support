@@ -330,6 +330,64 @@
 
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
 
+      <h2>Section title</h2>
+      <div class="table-responsive small">
+        <table class="table table-striped table-sm id="data-table">
+          <thead>
+            <tr>
+              <th scope="col">サービス</th>
+              <th scope="col">適切におこなわれたか</th>
+              <th scope="col">満足度</th>
+              <th scope="col">日付</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+<script>
+  $(document).ready(function () {
+  var tableBody = $("#data-table tbody");
+  var requestData = {
+      "OperationType": "SCAN"// リクエストデータをここに設定
+  };
+  
+  // Ajaxリクエストを送信
+  $.ajax({
+      url: "https://jsxr6jpgc8.execute-api.us-east-2.amazonaws.com/mo_POST/monitoring",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(requestData),
+      success: function (data) {
+          populateTable(data);
+      },
+      error: function (error) {
+          console.error("データの取得に失敗しました: " + error);
+      }
+  });
+
+function populateTable(data) {
+  for (var i = 0; i < data.scanData.Items.length; i++) {
+      var item = data.scanData.Items[i];
+      var row = $("<tr>");
+
+      // 各データプロパティをセルに追加
+      //row.append("<td>" + item.id.N + "</td>"); // 連番ID
+      row.append("<td>" + item.service.S + "</td>"); // サービス
+      row.append("<td>" + item.quality.S + "</td>"); // 適切か
+      row.append("<td>" + item.feeling.S + "</td>"); //満足度
+      row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+      row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+
+      // 他の列を追加する場合は、ここに追加
+
+      tableBody.append(row);
+  }
+}
+});
+      
+</script>
+<!--
       <h2>質問・回答</h2>
       <div class="table-responsive small">
         <table class="table table-striped table-sm" id="data-table">
@@ -412,6 +470,7 @@ function populateTable(data) {
 });
       
       </script>
+        -->
 
       </div>
     </main>
