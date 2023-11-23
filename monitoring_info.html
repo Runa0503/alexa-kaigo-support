@@ -379,7 +379,7 @@
   
   // Ajaxリクエストを送信
   $.ajax({
-      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
+      url: "https://jsxr6jpgc8.execute-api.us-east-2.amazonaws.com/mo_POST/monitoring",
       type: "POST",
       dataType: "json",
       data: JSON.stringify(requestData),
@@ -397,17 +397,17 @@ function populateTable(data) {
       var row = $("<tr>");
 
       // 各データプロパティをセルに追加
-      row.append("<td>" + item.assessment_id.N + "</td>"); // アセスメント質問ID
-      row.append("<td>" + item.item_id.S + "</td>"); // 項目ID
-      row.append("<td>" + item.question.S + "</td>"); // 質問内容
-      row.append("<td>" + item.yesno.S + "</td>"); // yesno
-      row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>"); //回答内容
+      //row.append("<td>" + item.id.N + "</td>"); // 連番ID
+      row.append("<td>" + item.service.S + "</td>"); // サービス
+      row.append("<td>" + item.quality.S + "</td>"); // 適切か
+      row.append("<td>" + item.feeling.S + "</td>"); //満足度
       row.append("<td>" + item.timestamp.S + "</td>"); // 日付
       row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
 
       // 他の列を追加する場合は、ここに追加
 
       tableBody.append(row);
+  }
   }
 }
 });
