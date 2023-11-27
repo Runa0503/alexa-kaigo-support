@@ -423,7 +423,7 @@ $(document).ready(function () {
       data: JSON.stringify({"OperationType": "SCAN"}),
       success: function (data) {
         // データを取得した後にpopulateTable関数を呼び出す
-        populateTable(data, selectedCategory);
+        populateTable(data, selectedCategory, selectedNum);
       },
       error: function (error) {
         console.error("データの取得に失敗しました: " + error);
@@ -431,7 +431,7 @@ $(document).ready(function () {
     });
   });
 
-  function populateTable(data, selectedCategory) {
+  function populateTable(data, selectedCategory, selectedNum) {
     // テーブルの内容をクリア
     tableBody.empty();
 
