@@ -335,7 +335,7 @@
                 </select>
               </div>
               <div class="col-6">
-                <select class="form-select js-filter" name="size">
+                <select class="form-select js-filter" name="size" id="sizeFilter">
                   <option value="all">全質問表示</option>
                   <option value="1">1. バスや電車で一人で外出していますか（タクシー・杖・ｼﾙﾊﾞｰｶｰ）</option>
                   <option value="2">2. 階段を手すりや壁を伝わらずに昇っていますか</option>
@@ -456,6 +456,39 @@ $(document).ready(function () {
     }
   }
 });
+
+$(document).ready(function () {
+    // Select要素の参照を取得
+    var selectOpinion = $('#opinionFilter');
+    var selectSize = $('#sizeFilter');
+
+    // opinionの選択が変更されたときのイベントリスナーを設定
+    selectOpinion.change(function () {
+      // 選択されたオプションの値を取得
+      var selectedOpinion = selectOpinion.val();
+
+      // Selectsizeの選択肢をリセット
+      selectSize.val('all');
+
+      // 選択されたopinionによってSelectsizeの選択肢を制御
+      if (selectedOpinion === '運動・移動') {
+        // 1〜7のoptionを表示
+        selectSize.find('option[value="1"]').show();
+        selectSize.find('option[value="2"]').show();
+        selectSize.find('option[value="3"]').show();
+        selectSize.find('option[value="4"]').show();
+        selectSize.find('option[value="5"]').show();
+        selectSize.find('option[value="6"]').show();
+        selectSize.find('option[value="7"]').show();
+        // 8以降のoptionを非表示
+        selectSize.find('option:gt(7)').hide();
+      } else {
+        // すべてのoptionを表示
+        selectSize.find('option').show();
+      }
+    });
+  });
+  
 </script>
 
       </div>
