@@ -457,7 +457,7 @@ $(document).ready(function () {
   }
 });
 
-$(document).ready(function () {
+  $(document).ready(function () {
     // Select要素の参照を取得
     var selectOpinion = $('#opinionFilter');
     var selectSize = $('#sizeFilter');
@@ -472,21 +472,32 @@ $(document).ready(function () {
 
       // 選択されたopinionによってSelectsizeの選択肢を制御
       if (selectedOpinion === '運動・移動') {
-        // 1〜7のoptionを表示
-        selectSize.find('option[value="1"]').show();
-        selectSize.find('option[value="2"]').show();
-        selectSize.find('option[value="3"]').show();
-        selectSize.find('option[value="4"]').show();
-        selectSize.find('option[value="5"]').show();
-        selectSize.find('option[value="6"]').show();
-        selectSize.find('option[value="7"]').show();
-        // 8以降のoptionを非表示
-        selectSize.find('option:gt(7)').hide();
+        showRange(1, 7);
+      } else if (selectedOpinion === '日常生活') {
+        showRange(8, 14);
+      } else if (selectedOpinion === '社会参加・対人関係') {
+        showRange(15, 21);
+      } else if (selectedOpinion === '健康管理') {
+        showRange(22, 28);
+      } else if (selectedOpinion === '意欲・生きがい') {
+        showRange(29, 35);
       } else {
         // すべてのoptionを表示
         selectSize.find('option').show();
       }
     });
+
+    function showRange(start, end) {
+      // start から end までのoptionを表示
+      for (var i = 1; i <= 35; i++) {
+        if (i >= start && i <= end) {
+          selectSize.find('option[value="' + i + '"]').show();
+        } else {
+          // 範囲外のoptionを非表示
+          selectSize.find('option[value="' + i + '"]').hide();
+        }
+      }
+    }
   });
   
 </script>
