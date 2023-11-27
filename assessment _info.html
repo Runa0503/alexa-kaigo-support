@@ -404,12 +404,18 @@ $(document).ready(function () {
 
   // Select要素の参照を取得
   var selectElement = document.querySelector('.js-filter');
-
+  // 選択されたオプションの値を取得
+  var selectedCategory = selectElement.value;
+  // Selectsizeの選択肢をリセット
+  selectedCategory.val('all');
+  
   // Select要素が変更されたときのイベントリスナーを設定
   selectElement.addEventListener('change', function() {
     // 選択されたオプションの値を取得
     var selectedCategory = selectElement.value;
     console.log(selectedCategory);
+    var selectOpinion = $('#opinionFilter');
+    var selectSize = $('#sizeFilter');
 
     // Ajaxリクエストを送信
     $.ajax({
@@ -440,7 +446,7 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
 
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if (selectedCategory === 'all' || item.item_id.S === selectedCategory) {
+      if (selectedCategory === 'all' || item.item_id.S === selectedCategory || item.assessment_id.N === selectSize) {
         var row = $("<tr>");
 
         row.append("<td>" + item.item_id.S + "</td>");
