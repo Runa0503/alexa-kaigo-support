@@ -463,6 +463,52 @@ function populateTable(data) {
       }
     }
 });
+
+  document.addEventListener('DOMContentLoaded', function() {
+  // Select要素の参照を取得
+  var selectElement = document.querySelector('.js-filter');
+
+  // Select要素が変更されたときのイベントリスナーを設定
+  selectElement.addEventListener('change', function() {
+    // 選択されたオプションの値を取得
+    var selectedValue = selectElement.value;
+
+    // opinionを表示するための要素の参照を取得
+    var opinionElement = document.getElementById('opinion');
+
+    // 選択された値に基づいて処理を実行
+    switch (selectedValue) {
+      case 'all':
+        // 全項目表示の場合の処理
+        consolelog("全て表示");
+        break;
+      case 'undo':
+        // 運動・移動の場合の処理
+        consolelog('運動・移動に関する情報を表示します。');
+        break;
+      case 'nitizyo':
+        // 日常生活の場合の処理
+        consolelog('日常生活に関する情報を表示します。');
+        break;
+      case 'taizin':
+        // 社会参加・対人関係の場合の処理
+        consolelog('社会参加・対人関係に関する情報を表示します。');
+        break;
+      case 'kenko':
+        // 健康管理の場合の処理
+        consolelog('健康管理に関する情報を表示します。');
+        break;
+      case 'iyoku':
+        // 意欲・生きがいの場合の処理
+        consolelog('意欲・生きがいに関する情報を表示します。');
+        break;
+      default:
+        // その他の場合の処理
+        consolelog("全て表示");
+        break;
+    }
+  });
+});
       
       </script>
 
