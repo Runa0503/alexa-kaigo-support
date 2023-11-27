@@ -325,14 +325,14 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-6">
-              <select class="form-select js-filter" name="opinion" id="opinionFilter">
-                <option value="all">全項目表示</option>
-                <option value="undo">運動・移動</option>
-                <option value="nitizyo">日常生活</option>
-                <option value="taizin">社会参加・対人関係</option>
-                <option value="kenko">健康管理</option>
-                <option value="iyoku">意欲・生きがい</option>
-              </select>
+                <select class="form-select js-filter" name="opinion" id="opinionFilter">
+                  <option value="all">全項目表示</option>
+                  <option value="運動・移動">運動・移動</option>
+                  <option value="日常生活">日常生活</option>
+                  <option value="社会参加・対人関係">社会参加・対人関係</option>
+                  <option value="健康管理">健康管理</option>
+                  <option value="意欲・生きがい">意欲・生きがい</option>
+                </select>
               </div>
               <div class="col-6">
                 <select class="form-select js-filter" name="size">
@@ -434,13 +434,49 @@
       dataType: "json",
       data: JSON.stringify(requestData),
       success: function (data) {
-          populateTable(data);
+          populateTable(data, selectedValue);
       },
       error: function (error) {
           console.error("データの取得に失敗しました: " + error);
       }
   });
 
+  // Select要素の参照を取得
+  var selectElement = document.querySelector('.js-filter');
+  // Select要素が変更されたときのイベントリスナーを設定
+  selectElement.addEventListener('change', function() {
+    // 選択されたオプションの値を取得
+    var selectedCategory = selectElement.value;
+    console.log(selectedValue);
+  });
+
+function populateTable(data, selectedCategory) {
+  // timestampでデータをソート
+  data.scanData.Items.sort(function(a, b) {
+    return new Date(b.timestamp.S) - new Date(a.timestamp.S);
+  });
+
+  for (var i = 0; i < data.scanData.Items.length; i++) {
+    var item = data.scanData.Items[i];
+
+    // カテゴリーが選択されたものであるかを確認する条件を追加
+    if (selectedCategory === 'all' || item.item_id.S === selectedCategory) {
+      var row = $("<tr>");
+
+      row.append("<td>" + item.item_id.S + "</td>");
+      row.append("<td>" + item.assessment_id.N + "</td>");
+      row.append("<td>" + item.question.S + "</td>");
+      row.append("<td>" + item.yesno.S + "</td>");
+      row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>");
+      row.append("<td>" + item.timestamp.S + "</td>");
+      row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
+
+      tableBody.append(row);
+    }
+  }
+}
+    
+/*
 function populateTable(data) {
       // timestampでデータをソート
       data.scanData.Items.sort(function(a, b) {
@@ -467,50 +503,14 @@ function populateTable(data) {
   document.addEventListener('DOMContentLoaded', function() {
   // Select要素の参照を取得
   var selectElement = document.querySelector('.js-filter');
-
   // Select要素が変更されたときのイベントリスナーを設定
   selectElement.addEventListener('change', function() {
     // 選択されたオプションの値を取得
-    var selectedValue = selectElement.value;
+    var selectedCategory = selectElement.value;
     console.log(selectedValue);
-    // opinionを表示するための要素の参照を取得
-    var opinionElement = document.getElementById('opinion');
-    console.log(opinionElement);
-
-    // 選択された値に基づいて処理を実行
-    switch (selectedValue) {
-      case 'all':
-        // 全項目表示の場合の処理
-        console.log("全て表示");
-        break;
-      case 'undo':
-        // 運動・移動の場合の処理
-        console.log('運動・移動に関する情報を表示します。');
-        break;
-      case 'nitizyo':
-        // 日常生活の場合の処理
-        console.log('日常生活に関する情報を表示します。');
-        break;
-      case 'taizin':
-        // 社会参加・対人関係の場合の処理
-        console.log('社会参加・対人関係に関する情報を表示します。');
-        break;
-      case 'kenko':
-        // 健康管理の場合の処理
-        console.log('健康管理に関する情報を表示します。');
-        break;
-      case 'iyoku':
-        // 意欲・生きがいの場合の処理
-        console.log('意欲・生きがいに関する情報を表示します。');
-        break;
-      default:
-        // その他の場合の処理
-        console.log("全て表示");
-        break;
-    }
   });
 });
-      
+*/
       </script>
 
       </div>
