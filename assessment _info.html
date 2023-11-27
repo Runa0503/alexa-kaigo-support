@@ -472,9 +472,10 @@ function populateTable(data) {
   selectElement.addEventListener('change', function() {
     // 選択されたオプションの値を取得
     var selectedValue = selectElement.value;
-
+    console.log(selectedValue);
     // opinionを表示するための要素の参照を取得
     var opinionElement = document.getElementById('opinion');
+    console.log(opinionElement);
 
     // 選択された値に基づいて処理を実行
     switch (selectedValue) {
