@@ -351,7 +351,7 @@
                   <option value="12">12. 自分で掃除をしていますか</option>
                   <option value="13">13. 身支度は自分でできていますか</option>
                   <option value="14">14. お風呂はまめに入っていますか</option>
-                  <option value="15">15. 友人の家を訪ねていますか（誰（） 週回）</option>
+                  <option value="15">15. 友人の家を訪ねていますか</option>
                   <option value="16">16. 家族や友人の相談にのっていますか</option>
                   <option value="17">17. 週に1回以上は外出していますか</option>
                   <option value="18">18. 昨年と比べて外出の回数が減っていますか</option>
@@ -404,10 +404,6 @@ $(document).ready(function () {
 
   // Select要素の参照を取得
   var selectElement = document.querySelector('.js-filter');
-  // 選択されたオプションの値を取得
-  var selectedCategory = selectElement.value;
-  // Selectsizeの選択肢をリセット
-  selectedCategory.val('all');
   
   // Select要素が変更されたときのイベントリスナーを設定
   selectElement.addEventListener('change', function() {
