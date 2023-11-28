@@ -403,15 +403,15 @@ $(document).ready(function () {
   var tableBody = $("#data-table tbody");
 
   // Select要素の参照を取得
-  var selectElement = document.querySelectorAll('.js-filter');
+  var opinionFilter = document.getElementById('opinionFilter');
+  var sizeFilter = document.getElementById('sizeFilter');
   
-  // Select要素が変更されたときのイベントリスナーを設定
-  selectElement.addEventListener('change', function() {
+  // opinionFilter に対するイベントリスナーを設定
+  opinionFilter.addEventListener('change', function() {
     // 選択されたオプションの値を取得
-    var selectedCategory = selectElement.value;
+    var selectedCategory = opinionFilter.value;
     console.log(selectedCategory);
     
-    var sizeFilter = document.getElementById('sizeFilter');
     // sizeFilter の選択された値を取得
     var selectedNum = sizeFilter.value;
 
@@ -422,7 +422,32 @@ $(document).ready(function () {
       dataType: "json",
       data: JSON.stringify({"OperationType": "SCAN"}),
       success: function (data) {
-        // データを取得した後にpopulateTable関数を呼び出す
+        // データを取得した後に populateTable 関数を呼び出す
+        populateTable(data, selectedCategory, selectedNum);
+      },
+      error: function (error) {
+        console.error("データの取得に失敗しました: " + error);
+      }
+    });
+  });
+
+  // sizeFilter に対するイベントリスナーを設定
+  sizeFilter.addEventListener('change', function() {
+    // 選択されたオプションの値を取得
+    var selectedCategory = opinionFilter.value;
+    console.log(selectedCategory);
+    
+    // sizeFilter の選択された値を取得
+    var selectedNum = sizeFilter.value;
+
+    // Ajaxリクエストを送信
+    $.ajax({
+      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({"OperationType": "SCAN"}),
+      success: function (data) {
+        // データを取得した後に populateTable 関数を呼び出す
         populateTable(data, selectedCategory, selectedNum);
       },
       error: function (error) {
@@ -435,7 +460,7 @@ $(document).ready(function () {
     // テーブルの内容をクリア
     tableBody.empty();
 
-    // timestampでデータをソート
+    // timestamp でデータをソート
     data.scanData.Items.sort(function(a, b) {
       return new Date(b.timestamp.S) - new Date(a.timestamp.S);
     });
