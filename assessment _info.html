@@ -374,8 +374,8 @@
                   <option value="35">35. （ここ2週間）不安な気持ちになることがある</option>
 
                 </select>
-                <button type="button" id="enter" class="btn btn-dark">Dark Button</button>
               </div>
+              <div class="col-6"><button type="button" id="enter" class="btn btn-dark">Dark Button</button></div>
             </div>
           </div>
       </div>
@@ -497,10 +497,12 @@ $(document).ready(function () {
 
     for (var i = 0; i < data.scanData.Items.length; i++) {
       var item = data.scanData.Items[i];
-
+      
       // カテゴリーが選択されたものであるかを確認する条件を追加
       if (selectedCategory === 'all' || selectedNum === 'all' || item.item_id.S.toString() === selectedCategory || item.assessment_id.N.toString() === selectedNum) {
         var row = $("<tr>");
+        console.log(item.assessment_id.N);
+        console.log(item.assessment_id.N.toString());
 
         row.append("<td>" + item.item_id.S + "</td>");
         row.append("<td>" + item.assessment_id.N + "</td>");
