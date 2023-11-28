@@ -508,10 +508,14 @@ $(document).ready(function () {
           row.append("<td>" + item.item_id.S + "</td>");
           row.append("<td>" + item.assessment_id.N + "</td>");
           row.append("<td>" + item.question.S + "</td>");
-          row.append("<td>" + item.yesno.S + "</td>");
+          row.append("<td class="yesno">" + item.yesno.S + "</td>");
           row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>");
           row.append("<td>" + item.timestamp.S + "</td>");
           row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
+
+          if (item.yesno.S=="いいえ") {
+              row.find("td.yesno").css("background-color", "#B0CCE6");
+          }
   
           tableBody.append(row);
         }
