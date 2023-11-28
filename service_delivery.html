@@ -371,9 +371,13 @@ $(document).ready(function () {
     var selectedCategory = opinionFilter.value;
     console.log(selectedCategory);
 
+    var requestData = {
+      "OperationType": "SCAN"// リクエストデータをここに設定
+  };
+    
     // Ajaxリクエストを送信
     $.ajax({
-      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
+      url: "https://r4coejm7ag.execute-api.us-east-2.amazonaws.com/sa_POST/servicedelivery",
       type: "POST",
       dataType: "json",
       data: JSON.stringify({"OperationType": "SCAN"}),
