@@ -517,13 +517,16 @@ $(document).ready(function () {
           if (item.item_id.S=="意欲・生きがい" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
+          else{
+            console.log.("そのまま")
+          }
           if (item.item_id.S=="移動・運動" && selectedNum=="2" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (item.item_id.S=="社会参加" && selectedNum=="18" && item.yesno.S=="はい") {
+          if (item.item_id.S=="社会参加・対人関" && selectedNum=="18" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (item.item_id.S=="社会参加" && selectedNum=="21" && item.yesno.S=="はい") {
+          if (item.item_id.S=="社会参加・対人関" && selectedNum=="21" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
           //if (item.yesno.S=="いいえ") {
