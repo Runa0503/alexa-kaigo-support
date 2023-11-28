@@ -513,9 +513,7 @@ $(document).ready(function () {
           row.append("<td>" + item.timestamp.S + "</td>");
           row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
 
-          if (item.yesno.S=="いいえ") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
+
           if (selectedCategory=="意欲・生きがい" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
@@ -526,6 +524,9 @@ $(document).ready(function () {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
           if (selectedCategory=="社会参加" && selectedNum=="21" && item.yesno.S=="はい") {
+              row.find("td.yesno").css("background-color", "#B0CCE6");
+          }
+          if (item.yesno.S=="いいえ") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
   
