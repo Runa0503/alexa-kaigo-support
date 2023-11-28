@@ -374,6 +374,7 @@
                   <option value="35">35. （ここ2週間）不安な気持ちになることがある</option>
 
                 </select>
+                <button type="button" id="enter" class="btn btn-dark">Dark Button</button>
               </div>
             </div>
           </div>
@@ -405,7 +406,34 @@ $(document).ready(function () {
   // Select要素の参照を取得
   var opinionFilter = document.getElementById('opinionFilter');
   var sizeFilter = document.getElementById('sizeFilter');
+
+
+  $("#enter").click(function () {
+        // 選択されたオプションの値を取得
+    var selectedCategory = opinionFilter.value;
+    console.log(selectedCategory);
+    
+    // sizeFilter の選択された値を取得
+    var selectedNum = sizeFilter.value;
+    console.log(selectedNum);
+
+    // Ajaxリクエストを送信
+    $.ajax({
+      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({"OperationType": "SCAN"}),
+      success: function (data) {
+        // データを取得した後に populateTable 関数を呼び出す
+        populateTable(data, selectedCategory, selectedNum);
+      },
+      error: function (error) {
+        console.error("データの取得に失敗しました: " + error);
+      }
+    });
+  });
   
+  /*
   // opinionFilter に対するイベントリスナーを設定
   opinionFilter.addEventListener('change', function() {
     // 選択されたオプションの値を取得
@@ -456,6 +484,7 @@ $(document).ready(function () {
       }
     });
   });
+  */
 
   function populateTable(data, selectedCategory, selectedNum) {
     // テーブルの内容をクリア
