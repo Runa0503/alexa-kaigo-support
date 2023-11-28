@@ -321,11 +321,21 @@
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
-        <ul class="menu">
-          <li class="me"><a href="">一覧</a></li>
-          <li class="me"><a href="">記録内容別表示</a></li>
-          <li class="me"><a href="">備考付のみ表示</a></li>
-        </ul>
+<!------ filter ------>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <select class="js-filter" name="opinion" id="opinionFilter">
+                  <option value="all">全項目表示</option>
+                  <option value="配食">配食</option>
+                  <option value="訪問理容">訪問理容</option>
+                  <option value="訪問介護">訪問介護</option>
+                  <option value="配達">配達</option>
+                </select>
+              </div>
+            </div>
+          </div>
+      </div>
       </div>
 
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
@@ -370,7 +380,17 @@
 
 <script>
   $(document).ready(function () {
-  var tableBody = $("#data-table tbody");
+   var tableBody = $("#data-table tbody");
+
+  // Select要素の参照を取得
+  var opinionFilter = document.getElementById('opinionFilter');
+  
+  // opinionFilter に対するイベントリスナーを設定
+  opinionFilter.addEventListener('change', function() {
+    // 選択されたオプションの値を取得
+    var selectedCategory = opinionFilter.value;
+    console.log(selectedCategory);
+    
   var requestData = {
       "OperationType": "SCAN"// リクエストデータをここに設定
   };
@@ -381,31 +401,45 @@
       type: "POST",
       dataType: "json",
       data: JSON.stringify(requestData),
-      success: function (data) {
+      success: function (data, selectedCategory) {
           populateTable(data);
       },
       error: function (error) {
           console.error("データの取得に失敗しました: " + error);
-      }
+       }
+    });
   });
 
 function populateTable(data) {
   for (var i = 0; i < data.scanData.Items.length; i++) {
+
+        // テーブルの内容をクリア
+    tableBody.empty();
+
+    // timestamp でデータをソート
+    data.scanData.Items.sort(function(a, b) {
+      return new Date(b.timestamp.S) - new Date(a.timestamp.S);
+    });
+
+    for (var i = 0; i < data.scanData.Items.length; i++) {
       var item = data.scanData.Items[i];
-      var row = $("<tr>");
-
-      // 各データプロパティをセルに追加
-      //row.append("<td>" + item.id.N + "</td>"); // 連番ID
-      row.append("<td>" + item.service.S + "</td>"); // サービス
-      row.append("<td>" + item.quality.S + "</td>"); // 適切か
-      row.append("<td>" + item.feeling.S + "</td>"); //満足度
-      row.append("<td>" + item.timestamp.S + "</td>"); // 日付
-      row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
-
-      // 他の列を追加する場合は、ここに追加
-
-      tableBody.append(row);
-  }
+      
+      if (selectedCategory === 'all' || item.service.S === selectedCategory) {
+        var row = $("<tr>");
+  
+        // 各データプロパティをセルに追加
+        row.append("<td>" + item.id.N + "</td>"); // 連番ID
+        row.append("<td>" + item.service.S + "</td>"); // サービス
+        row.append("<td>" + item.quality.S + "</td>"); // 適切か
+        row.append("<td>" + item.feeling.S + "</td>"); //満足度
+        row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+        row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+  
+        // 他の列を追加する場合は、ここに追加
+  
+        tableBody.append(row);
+      }
+    }
   }
 });
       
