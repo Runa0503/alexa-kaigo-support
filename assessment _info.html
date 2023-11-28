@@ -513,7 +513,10 @@ $(document).ready(function () {
           row.append("<td>" + item.timestamp.S + "</td>");
           row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
 
-          if (item.yesno.S=="いいえ") {
+          if (selectedCategory=="意欲生きがい" && item.yesno.S=="はい") {
+              row.find("td.yesno").css("background-color", "#B0CCE6");
+          }
+          else if (item.yesno.S=="いいえ") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
   
