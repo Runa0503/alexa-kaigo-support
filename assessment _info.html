@@ -500,7 +500,7 @@ $(document).ready(function () {
       
       // カテゴリーが選択されたものであるかを確認する条件を追加
       if (selectedCategory === 'all' || item.item_id.S.toString() === selectedCategory ) {
-        if(selectedCategory === 'all' || item.assessment_id.N.toString() === selectedNum){
+        if(selectedNum === 'all' || item.assessment_id.N.toString() === selectedNum){
         var row = $("<tr>");
           console.log(item.assessment_id.N);
           console.log(item.assessment_id.N.toString());
