@@ -403,7 +403,7 @@ $(document).ready(function () {
   var tableBody = $("#data-table tbody");
 
   // Select要素の参照を取得
-  var selectElement = document.querySelector('.js-filter');
+  var selectElement = document.getElementsByClassName('form-select js-filter');
   
   // Select要素が変更されたときのイベントリスナーを設定
   selectElement.addEventListener('change', function() {
