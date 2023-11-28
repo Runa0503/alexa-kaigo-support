@@ -514,21 +514,21 @@ $(document).ready(function () {
           row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
 
 
-          if (selectedCategory=="意欲・生きがい" && item.yesno.S=="はい") {
+          if (item.item_id.S=="意欲・生きがい" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (selectedCategory=="移動・運動" && selectedNum=="2" && item.yesno.S=="はい") {
+          if (item.item_id.S=="移動・運動" && selectedNum=="2" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (selectedCategory=="社会参加" && selectedNum=="18" && item.yesno.S=="はい") {
+          if (item.item_id.S=="社会参加" && selectedNum=="18" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (selectedCategory=="社会参加" && selectedNum=="21" && item.yesno.S=="はい") {
+          if (item.item_id.S=="社会参加" && selectedNum=="21" && item.yesno.S=="はい") {
               row.find("td.yesno").css("background-color", "#B0CCE6");
           }
-          if (item.yesno.S=="いいえ") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
+          //if (item.yesno.S=="いいえ") {
+          //    row.find("td.yesno").css("background-color", "#B0CCE6");
+         // }
   
           tableBody.append(row);
         }
