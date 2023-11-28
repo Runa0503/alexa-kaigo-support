@@ -321,11 +321,20 @@
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
-        <ul class="menu">
-          <li class="me"><a href="">一覧</a></li>
-          <li class="me"><a href="">サービス内容別表示</a></li>
-          <li class="me"><a href="">備考付のみ表示</a></li>
-        </ul>
+<!------ filter ------>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <select class="js-filter" name="opinion" id="opinionFilter">
+                  <option value="all">全項目表示</option>
+                  <option value="配食">配食</option>
+                  <option value="訪問理容">訪問理容</option>
+                  <option value="訪問介護">訪問介護</option>
+                  <option value="配達">配達</option>
+                </select>
+              </div>
+            </div>
+          </div>
       </div>
 
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
@@ -350,30 +359,49 @@
         </table>
           
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
   var tableBody = $("#data-table tbody");
-  var requestData = {
-      "OperationType": "SCAN"// リクエストデータをここに設定
-  };
+
+  // Select要素の参照を取得
+  var opinionFilter = document.getElementById('opinionFilter');
   
-  // Ajaxリクエストを送信
-  $.ajax({
-      url: "https://r4coejm7ag.execute-api.us-east-2.amazonaws.com/sa_POST/servicedelivery",
+  // opinionFilter に対するイベントリスナーを設定
+  opinionFilter.addEventListener('change', function() {
+    // 選択されたオプションの値を取得
+    var selectedCategory = opinionFilter.value;
+    console.log(selectedCategory);
+
+    // Ajaxリクエストを送信
+    $.ajax({
+      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
       type: "POST",
       dataType: "json",
-      data: JSON.stringify(requestData),
+      data: JSON.stringify({"OperationType": "SCAN"}),
       success: function (data) {
-          populateTable(data);
+        // データを取得した後に populateTable 関数を呼び出す
+        populateTable(data, selectedCategory, selectedNum);
       },
       error: function (error) {
-          console.error("データの取得に失敗しました: " + error);
+        console.error("データの取得に失敗しました: " + error);
       }
+    });
   });
 
-function populateTable(data) {
-  for (var i = 0; i < data.scanData.Items.length; i++) {
+  function populateTable(data, selectedCategory, selectedNum) {
+    // テーブルの内容をクリア
+    tableBody.empty();
+
+    // timestamp でデータをソート
+    data.scanData.Items.sort(function(a, b) {
+      return new Date(b.timestamp.S) - new Date(a.timestamp.S);
+    });
+
+    for (var i = 0; i < data.scanData.Items.length; i++) {
       var item = data.scanData.Items[i];
-      var row = $("<tr>");
+
+      // カテゴリーが選択されたものであるかを確認する条件を追加
+      if (selectedCategory === 'all' || item.service.S === selectedCategory) {
+        var row = $("<tr>");
 
       // 各データプロパティをセルに追加
       //row.append("<td>" + item.id.N + "</td>"); // 連番ID
@@ -389,8 +417,9 @@ function populateTable(data) {
       // 他の列を追加する場合は、ここに追加
 
       tableBody.append(row);
+      }
+    }
   }
-}
 });
       
 </script>
