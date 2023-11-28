@@ -499,7 +499,7 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
 
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if (selectedCategory === 'all' || item.item_id.S.toString() === selectedCategory || item.assessment_id.N.toString() === selectedNum) {
+      if (selectedCategory === 'all' || selectedNum === 'all' || item.item_id.S.toString() === selectedCategory || item.assessment_id.N.toString() === selectedNum) {
         var row = $("<tr>");
 
         row.append("<td>" + item.item_id.S + "</td>");
