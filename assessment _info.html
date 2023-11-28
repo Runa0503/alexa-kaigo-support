@@ -325,7 +325,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-6">
-                <select class="form-select js-filter" name="opinion" id="opinionFilter">
+                <select class="js-filter" name="opinion" id="opinionFilter">
                   <option value="all">全項目表示</option>
                   <option value="運動・移動">運動・移動</option>
                   <option value="日常生活">日常生活</option>
@@ -335,7 +335,7 @@
                 </select>
               </div>
               <div class="col-6">
-                <select class="form-select js-filter" name="size" id="sizeFilter">
+                <select class="js-filter" name="size" id="sizeFilter">
                   <option value="all">全質問表示</option>
                   <option value="1">1. バスや電車で一人で外出していますか（タクシー・杖・ｼﾙﾊﾞｰｶｰ）</option>
                   <option value="2">2. 階段を手すりや壁を伝わらずに昇っていますか</option>
@@ -403,7 +403,7 @@ $(document).ready(function () {
   var tableBody = $("#data-table tbody");
 
   // Select要素の参照を取得
-  var selectElement = document.getElementsByClassName('form-select js-filter');
+  var selectElement = document.querySelectorAll('.js-filter');
   
   // Select要素が変更されたときのイベントリスナーを設定
   selectElement.addEventListener('change', function() {
