@@ -402,6 +402,7 @@ $(document).ready(function () {
       // カテゴリーが選択されたものであるかを確認する条件を追加
       if (selectedCategory === 'all' || item.service.S === selectedCategory) {
         var row = $("<tr>");
+        console.log(item.service.S);
 
       // 各データプロパティをセルに追加
       //row.append("<td>" + item.id.N + "</td>"); // 連番ID
