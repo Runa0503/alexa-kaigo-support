@@ -398,11 +398,11 @@ $(document).ready(function () {
 
     for (var i = 0; i < data.scanData.Items.length; i++) {
       var item = data.scanData.Items[i];
-
+        console.log(item.service.S);
       // カテゴリーが選択されたものであるかを確認する条件を追加
       if (selectedCategory === 'all' || item.service.S === selectedCategory) {
         var row = $("<tr>");
-        console.log(item.service.S);
+        
 
       // 各データプロパティをセルに追加
       //row.append("<td>" + item.id.N + "</td>"); // 連番ID
