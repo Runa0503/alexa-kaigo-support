@@ -478,7 +478,7 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
         console.log(item.service.S);
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if(item.user_id.S == userId){
+      if(item.user_id.S == userId || item.user_id.S != userId){
         console.log(item.user_id.S+"="+userId);
         if (selectedCategory === 'all' || item.service.S === selectedCategory) {
           var row = $("<tr>");
