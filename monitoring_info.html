@@ -380,6 +380,12 @@
         </table>
 
 <script>
+function submitFormAndRedirect(rowId) {
+      console.log("Clicked Row ID:", rowId);
+      // リダイレクト先のURL
+      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId)+"?user_id="+encodeURIComponent('Assessment');
+  }
+  
  $(document).ready(function () {
     var tableBody = $("#data-table tbody");
 
@@ -515,7 +521,7 @@
                 row.append("<td>" + item.feeling.S + "</td>"); // 満足度
                 row.append("<td>" + item.timestamp.S + "</td>"); // 日付
                 row.append("<td>" + item.user_id.S + "</td>"); // 日付
-                row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+                row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
 
                 // 他の列を追加する場合は、ここに追加
 
