@@ -357,11 +357,47 @@
           <tbody>
           </tbody>
         </table>
+
+        <div id="formElement"></div>
           
 <script>
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const rowId = urlParams.get('id');
 
+    // クエリパラメータ 'id' が存在する場合
+    if (rowId) {
+        // フォームにデータを表示する処理
+        displayFormData(rowId);
+    }
 });
+
+function displayFormData(rowId) {
+    // rowIdを使って必要なデータを取得する処理（例：APIリクエストを送信）
+    // ここではサンプルデータを使用
+    const sampleData = {
+        id: rowId,
+        item_id: 'SampleItemID',
+        assessment_id: 'SampleAssessmentID',
+        question: 'SampleQuestion',
+        yesno: 'Yes',
+        contents: ['Content1', 'Content2', 'Content3'],
+        frequency: 'SampleFrequency',
+        timestamp: '2023-01-01T12:34:56Z'
+    };
+
+    // フォームにデータを表示する処理
+    const formElement = document.getElementById('formElement');
+    formElement.innerHTML = '<p>ID: ' + sampleData.id + '</p>' +
+                            '<p>item_id: ' + sampleData.item_id + '</p>' +
+                            '<p>assessment_id: ' + sampleData.assessment_id + '</p>' +
+                            '<p>question: ' + sampleData.question + '</p>' +
+                            '<p>yesno: ' + sampleData.yesno + '</p>' +
+                            '<p>contents: ' + sampleData.contents.join(', ') + '</p>' +
+                            '<p>frequency: ' + sampleData.frequency + '</p>' +
+                            '<p>timestamp: ' + sampleData.timestamp + '</p>';
+}
+
       
 </script>
           
