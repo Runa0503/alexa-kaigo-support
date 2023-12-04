@@ -400,6 +400,12 @@
         </table>
 
 <script>
+function submitFormAndRedirect(rowId) {
+      console.log("Clicked Row ID:", rowId);
+      // リダイレクト先のURL
+      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId);
+  }
+  
 $(document).ready(function () {
   var tableBody = $("#data-table tbody");
   // URLからクエリパラメータを取得
@@ -560,13 +566,6 @@ $(document).ready(function () {
       }
     }
   }
-
-  function submitFormAndRedirect(rowId) {
-      console.log("Clicked Row ID:", rowId);
-      // リダイレクト先のURL
-      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId);
-  }
-  
 });
 
   $(document).ready(function () {
