@@ -393,10 +393,10 @@
     
         if (userId) {
             // クリックされた要素からuser_id（ここではid）を取得
-            var clickedUserId = userId.text();
+            //var clickedUserId = userId;
     
             // ページ遷移先へuser_idを渡して遷移
-            window.location.href = "./monitoring_info.html?user_id=" + encodeURIComponent(clickedUserId);
+            window.location.href = "./monitoring_info.html?user_id=" + encodeURIComponent(UserId);
         } else {
             // userIdが存在しない場合は通常の遷移を行う
             window.location.href = "./monitoring_info.html";
@@ -409,10 +409,10 @@
     
         if (userId) {
             // クリックされた要素からuser_idを取得
-            var clickedUserId = userId.text();
+            //var clickedUserId = userId.text();
     
             // ページ遷移先へuser_idを渡して遷移
-            window.location.href = "./service_delivery.html?user_id=" + encodeURIComponent(clickedUserId);
+            window.location.href = "./service_delivery.html?user_id=" + encodeURIComponent(UserId);
         } else {
             // userIdが存在しない場合は通常の遷移を行う
             window.location.href = "./service_delivery.html";
@@ -424,10 +424,10 @@
     
         if (userId) {
             // クリックされた要素からuser_idを取得
-            var clickedUserId = userId.text();
+            //var clickedUserId = userId.text();
     
             // ページ遷移先へuser_idを渡して遷移
-            window.location.href = "./assessment_info.html?user_id=" + encodeURIComponent(clickedUserId);
+            window.location.href = "./assessment_info.html?user_id=" + encodeURIComponent(UserId);
         } else {
             // userIdが存在しない場合は通常の遷移を行う
             window.location.href = "./assessment_info.html";
