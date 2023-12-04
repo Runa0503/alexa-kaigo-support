@@ -361,7 +361,8 @@
         <div id="formElement"></div>
           
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
+  console.log('DOMが構築されました！');
     const urlParams = new URLSearchParams(window.location.search);
     const rowId = urlParams.get('id');
 
