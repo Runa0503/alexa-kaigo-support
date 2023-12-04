@@ -406,6 +406,7 @@ $(document).ready(function () {
   const urlParams = new URLSearchParams(window.location.search);
   // user_idパラメータの値を取得
   const userId = urlParams.get('user_id');
+  console.log(userId);
 
    $("#mo").on("click", function(e) {
         e.preventDefault(); // デフォルトの遷移を防ぐ
