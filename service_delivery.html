@@ -362,7 +362,7 @@
 function submitFormAndRedirect(rowId) {
       console.log("Clicked Row ID:", rowId);
       // リダイレクト先のURL
-      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId)+"?user_id="+encodeURIComponent('ServiceDelivery');
+      window.location.href = "./update.html?rowId=" + encodeURIComponent(rowId)+"?tableName="+encodeURIComponent('ServiceDelivery');
   }
 
 $(document).ready(function () {
