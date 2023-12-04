@@ -534,7 +534,7 @@ $(document).ready(function () {
             row.append("<td class='yesno'>" + item.yesno.S + "</td>");
             row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>");
             row.append("<td>" + item.timestamp.S + "</td>");
-            row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
+            row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect()'>編集</button></td>");
   
   
             if (item.item_id.S=="意欲・生きがい" && item.yesno.S=="はい") {
@@ -602,6 +602,15 @@ $(document).ready(function () {
         }
       }
     }
+
+    function submitFormAndRedirect() {
+      // リダイレクト先のURL
+      const redirectURL = "./update.html";
+      // リダイレクト実行
+      window.location.href = redirectURL;
+    }
+
+    
   });
   
 </script>
