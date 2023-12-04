@@ -607,9 +607,7 @@ $(document).ready(function () {
     function submitFormAndRedirect(rowId) {
       console.log("Clicked Row ID:", rowId);
       // リダイレクト先のURL
-      const redirectURL = "./update.html";
-      // リダイレクト実行
-      window.location.href = redirectURL;
+      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId);
     }
 
     
