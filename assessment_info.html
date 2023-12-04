@@ -527,7 +527,8 @@ $(document).ready(function () {
           var row = $("<tr>");
             console.log(item.assessment_id.N);
             console.log(item.assessment_id.N.toString());
-    
+            
+            row.append("<td>" + item.id.N + "</td>");
             row.append("<td>" + item.item_id.S + "</td>");
             row.append("<td>" + item.assessment_id.N + "</td>");
             row.append("<td>" + item.question.S + "</td>");
