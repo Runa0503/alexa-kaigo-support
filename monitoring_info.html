@@ -504,6 +504,7 @@
             var item = data.scanData.Items[i];
 
           if(item.user_id.S == userId){
+            console.log(item.user_id.S+"="+userId);
             if (selectedCategory === 'all' || item.service.S === selectedCategory) {
                 var row = $("<tr>");
 
