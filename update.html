@@ -370,7 +370,7 @@ $(document).ready(function () {
   console.log('DOMが構築されました！');
     const urlParams = new URLSearchParams(window.location.search);
     const rowId = urlParams.get('rowId');
-    const rowId = urlParams.get('tableName');
+    const tableName = urlParams.get('tableName');
 
     // クエリパラメータ 'id' が存在する場合
     if (rowId) {
