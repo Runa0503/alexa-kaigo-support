@@ -379,70 +379,80 @@
         </table>
 
 <script>
-  $(document).ready(function () {
-   var tableBody = $("#data-table tbody");
+ $(document).ready(function () {
+    var tableBody = $("#data-table tbody");
 
-  // Select要素の参照を取得
-  var opinionFilter = document.getElementById('opinionFilter');
-  
-  // opinionFilter に対するイベントリスナーを設定
-  opinionFilter.addEventListener('change', function() {
-    // 選択されたオプションの値を取得
-    var selectedCategory = opinionFilter.value;
-    console.log(selectedCategory);
-    
-  var requestData = {
-      "OperationType": "SCAN"// リクエストデータをここに設定
-  };
-  
-  // Ajaxリクエストを送信
-  $.ajax({
-      url: "https://jsxr6jpgc8.execute-api.us-east-2.amazonaws.com/mo_POST/monitoring",
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify(requestData),
-      success: function (data, selectedCategory) {
-          populateTable(data);
-      },
-      error: function (error) {
-          console.error("データの取得に失敗しました: " + error);
-       }
+    // Select要素の参照を取得
+    var opinionFilter = document.getElementById('opinionFilter');
+
+    // opinionFilter に対するイベントリスナーを設定
+    opinionFilter.addEventListener('change', function () {
+        // 選択されたオプションの値を取得
+        var selectedCategory = opinionFilter.value;
+        console.log(selectedCategory);
+
+        var requestData = {
+            "OperationType": "SCAN"
+            // リクエストデータをここに設定
+        };
+
+        // Ajaxリクエストを送信
+        $.ajax({
+            url: "https://jsxr6jpgc8.execute-api.us-east-2.amazonaws.com/mo_POST/monitoring",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(requestData),
+            success: function (data) {
+                populateTable(data, selectedCategory);
+            },
+            error: function (error) {
+                console.error("データの取得に失敗しました: " + error);
+            }
+        });
     });
-  });
 
-function populateTable(data) {
-  for (var i = 0; i < data.scanData.Items.length; i++) {
-
+    function populateTable(data, selectedCategory) {
         // テーブルの内容をクリア
-    tableBody.empty();
+        tableBody.empty();
 
-    // timestamp でデータをソート
-    data.scanData.Items.sort(function(a, b) {
-      return new Date(b.timestamp.S) - new Date(a.timestamp.S);
-    });
+      // URLからクエリパラメータを取得
+      const urlParams = new URLSearchParams(window.location.search);
+      // user_idパラメータの値を取得
+      const userId = urlParams.get('user_id');
 
-    for (var i = 0; i < data.scanData.Items.length; i++) {
-      var item = data.scanData.Items[i];
-      
-      if (selectedCategory === 'all' || item.service.S === selectedCategory) {
-        var row = $("<tr>");
-  
-        // 各データプロパティをセルに追加
-        row.append("<td>" + item.id.N + "</td>"); // 連番ID
-        row.append("<td>" + item.service.S + "</td>"); // サービス
-        row.append("<td>" + item.quality.S + "</td>"); // 適切か
-        row.append("<td>" + item.feeling.S + "</td>"); //満足度
-        row.append("<td>" + item.timestamp.S + "</td>"); // 日付
-        row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
-  
-        // 他の列を追加する場合は、ここに追加
-  
-        tableBody.append(row);
+      if (userId) {
+        // ここにuser_idを使った処理を追加
+        console.log('User ID:', userId);
+      } else {
+        console.error('User ID not found in the URL.');
       }
+
+        // timestamp でデータをソート
+        data.scanData.Items.sort(function (a, b) {
+            return new Date(b.timestamp.S) - new Date(a.timestamp.S);
+        });
+
+        for (var i = 0; i < data.scanData.Items.length; i++) {
+            var item = data.scanData.Items[i];
+
+            if (selectedCategory === 'all' || item.service.S === selectedCategory) {
+                var row = $("<tr>");
+
+                // 各データプロパティをセルに追加
+                row.append("<td>" + item.id.N + "</td>"); // 連番ID
+                row.append("<td>" + item.service.S + "</td>"); // サービス
+                row.append("<td>" + item.quality.S + "</td>"); // 適切か
+                row.append("<td>" + item.feeling.S + "</td>"); // 満足度
+                row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+                row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+
+                // 他の列を追加する場合は、ここに追加
+
+                tableBody.append(row);
+            }
+        }
     }
-  }
 });
-      
       </script>
 
       </div>
