@@ -361,7 +361,59 @@
 <script>
 $(document).ready(function () {
   var tableBody = $("#data-table tbody");
+  
+  // URLからクエリパラメータを取得
+      const urlParams = new URLSearchParams(window.location.search);
+      // user_idパラメータの値を取得
+      const userId = urlParams.get('user_id');
 
+   $("#mo").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_id（ここではid）を取得
+            //var clickedUserId = userId;
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./monitoring_info.html?user_id=" + encodeURIComponent(userId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./monitoring_info.html";
+        }
+    });
+
+    
+    $("#sa").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_idを取得
+            //var clickedUserId = userId.text();
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./service_delivery.html?user_id=" + encodeURIComponent(userId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./service_delivery.html";
+        }
+    });
+    
+    $("#asse").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_idを取得
+            //var clickedUserId = userId.text();
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./assessment_info.html?user_id=" + encodeURIComponent(userId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./assessment_info.html";
+        }
+    });
+
+  
     var requestData = {
         "OperationType": "SCAN"// リクエストデータをここに設定
     };
