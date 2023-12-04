@@ -506,59 +506,6 @@ $(document).ready(function () {
       }
     });
   });
-  
-  /*
-  // opinionFilter に対するイベントリスナーを設定
-  opinionFilter.addEventListener('change', function() {
-    // 選択されたオプションの値を取得
-    var selectedCategory = opinionFilter.value;
-    console.log(selectedCategory);
-    
-    // sizeFilter の選択された値を取得
-    var selectedNum = sizeFilter.value;
-
-    // Ajaxリクエストを送信
-    $.ajax({
-      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify({"OperationType": "SCAN"}),
-      success: function (data) {
-        // データを取得した後に populateTable 関数を呼び出す
-        populateTable(data, selectedCategory, selectedNum);
-      },
-      error: function (error) {
-        console.error("データの取得に失敗しました: " + error);
-      }
-    });
-  });
-
-  // sizeFilter に対するイベントリスナーを設定
-  sizeFilter.addEventListener('change', function() {
-    // 選択されたオプションの値を取得
-    var selectedCategory = opinionFilter.value;
-    console.log(selectedCategory);
-    
-    // sizeFilter の選択された値を取得
-    var selectedNum = sizeFilter.value;
-    console.log("サイズ発動"+selectedNum);
-
-    // Ajaxリクエストを送信
-    $.ajax({
-      url: "https://zn4ip3tsrc.execute-api.us-east-2.amazonaws.com/as_POST/assessment",
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify({"OperationType": "SCAN"}),
-      success: function (data) {
-        // データを取得した後に populateTable 関数を呼び出す
-        populateTable(data, selectedCategory, selectedNum);
-      },
-      error: function (error) {
-        console.error("データの取得に失敗しました: " + error);
-      }
-    });
-  });
-  */
 
   function populateTable(data, selectedCategory, selectedNum) {
     // テーブルの内容をクリア
@@ -573,7 +520,7 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
       
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if(item.user_id.S == userId){
+      if(item.user_id.S == userId || item.user_id.S != userId){
       console.log(item.user_id.S+"="+userId);
         if (selectedCategory === 'all' || item.item_id.S.toString() === selectedCategory ) {
           if(selectedNum === 'all' || item.assessment_id.N.toString() === selectedNum){
