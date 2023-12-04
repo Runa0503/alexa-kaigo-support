@@ -490,7 +490,7 @@ $(document).ready(function () {
           var row = $("<tr>");
         
         // 各データプロパティをセルに追加
-        //row.append("<td>" + item.id.N + "</td>"); // 連番ID
+        row.append("<td>" + item.id.N + "</td>"); // 連番ID
         row.append("<td>" + item.manager_id.S + "</td>"); //記録者
         row.append("<td>" + item.service.S + "</td>"); // サービス
         row.append("<td class='deki'>" + item.service_situation.S + "</td>"); // 提供状況
@@ -498,7 +498,7 @@ $(document).ready(function () {
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
         row.append("<td>" + item.timestamp.S + "</td>"); // 日付
-        row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+        row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
   
         // 他の列を追加する場合は、ここに追加
         if (item.service_situation.S=="できなかった") {
