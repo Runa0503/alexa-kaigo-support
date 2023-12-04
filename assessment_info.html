@@ -560,6 +560,13 @@ $(document).ready(function () {
       }
     }
   }
+
+  function submitFormAndRedirect(rowId) {
+      console.log("Clicked Row ID:", rowId);
+      // リダイレクト先のURL
+      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId);
+  }
+  
 });
 
   $(document).ready(function () {
@@ -603,14 +610,6 @@ $(document).ready(function () {
         }
       }
     }
-
-    function submitFormAndRedirect(rowId) {
-      console.log("Clicked Row ID:", rowId);
-      // リダイレクト先のURL
-      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId);
-    }
-
-    
   });
   
 </script>
