@@ -351,26 +351,36 @@ $(document).ready(function () {
 
 function populateTable(data) {
   var tableBody = $("#data-table tbody");
-    // timestamp でデータをソート
-    data.scanData.Items.sort(function(a, b) {
-        return new Date(b.timestamp.S) - new Date(a.timestamp.S);
-    });
+  
+  // timestampでデータをソート
+  data.scanData.Items.sort(function(a, b) {
+    return new Date(b.timestamp.S) - new Date(a.timestamp.S);
+  });
 
-    for (var i = 0; i < data.scanData.Items.length; i++) {
-        var item = data.scanData.Items[i];
-        console.log(item);
+  for (var i = 0; i < data.scanData.Items.length; i++) {
+    var item = data.scanData.Items[i];
+    console.log(item);
 
-        var row = $("<tr>");
-        
-        // 各データプロパティをセルに追加
-        //row.append("<td>" + item.id.N + "</td>"); // 連番ID
-        row.append("<td><a class='nav-link d-flex align-items-center gap-2' href='./monitoring_info.html'>" + item.user_id.S + "</a></td>"); //高齢者
-        row.append("<td>" + item.mail.S + "</td>"); // メール
-        
-        tableBody.append(row);
-    }
-}
-          
+    var row = $("<tr>");
+    
+    // 各データプロパティをセルに追加
+    row.append("<td><a class='nav-link d-flex align-items-center gap-2 user-link' href='#'>" + item.user_id.S + "</a></td>"); //高齢者
+    row.append("<td>" + item.mail.S + "</td>"); // メール
+    
+    tableBody.append(row);
+  }
+
+  // リンクがクリックされたときの処理
+  $(".user-link").on("click", function(e) {
+    e.preventDefault(); // デフォルトの遷移を防ぐ
+
+    // クリックされた行からuser_idを取得
+    var userId = $(this).text();
+
+    // ページ遷移先へuser_idを渡して遷移
+    window.location.href = "./monitoring_info.html?user_id=" + encodeURIComponent(userId);
+  });
+}          
 </script>
         
       </div>
