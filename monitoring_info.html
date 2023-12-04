@@ -253,19 +253,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="./service_delivery.html">
+                <a class="nav-link d-flex align-items-center gap-2" id = "sa" href="./service_delivery.html">
                   <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                   サービス提供状況
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" id = "mo" href="#">
                   <svg class="bi"><use xlink:href="#cart"/></svg>
                   モニタリング情報
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="./assessment_info.html">
+                <a class="nav-link d-flex align-items-center gap-2" id = "asse" href="./assessment _info.html">
                   <svg class="bi"><use xlink:href="#graph-up"/></svg>
                   アセスメント情報
                 </a>
@@ -383,6 +383,57 @@
  $(document).ready(function () {
     var tableBody = $("#data-table tbody");
 
+   // URLからクエリパラメータを取得
+      const urlParams = new URLSearchParams(window.location.search);
+      // user_idパラメータの値を取得
+      const userId = urlParams.get('user_id');
+
+   $("#mo").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_id（ここではid）を取得
+            var clickedUserId = userId.text();
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./monitoring_info.html?user_id=" + encodeURIComponent(clickedUserId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./monitoring_info.html";
+        }
+    });
+
+    
+    $("#sa").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_idを取得
+            var clickedUserId = userId.text();
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./service_delivery.html?user_id=" + encodeURIComponent(clickedUserId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./service_delivery.html";
+        }
+    });
+    
+    $("#asse").on("click", function(e) {
+        e.preventDefault(); // デフォルトの遷移を防ぐ
+    
+        if (userId) {
+            // クリックされた要素からuser_idを取得
+            var clickedUserId = userId.text();
+    
+            // ページ遷移先へuser_idを渡して遷移
+            window.location.href = "./assessment_info.html?user_id=" + encodeURIComponent(clickedUserId);
+        } else {
+            // userIdが存在しない場合は通常の遷移を行う
+            window.location.href = "./assessment_info.html";
+        }
+    });
+
    var requestData = {
         "OperationType": "SCAN"
         // リクエストデータをここに設定
@@ -436,11 +487,7 @@
     function populateTable(data, selectedCategory) {
         // テーブルの内容をクリア
         tableBody.empty();
-
-      // URLからクエリパラメータを取得
-      const urlParams = new URLSearchParams(window.location.search);
-      // user_idパラメータの値を取得
-      const userId = urlParams.get('user_id');
+      
       if (userId) {
         // ここにuser_idを使った処理を追加
         console.log('User ID:', userId);
@@ -456,6 +503,7 @@
         for (var i = 0; i < data.scanData.Items.length; i++) {
             var item = data.scanData.Items[i];
 
+          if(item.user_id.S == userId){
             if (selectedCategory === 'all' || item.service.S === selectedCategory) {
                 var row = $("<tr>");
 
@@ -465,12 +513,14 @@
                 row.append("<td>" + item.quality.S + "</td>"); // 適切か
                 row.append("<td>" + item.feeling.S + "</td>"); // 満足度
                 row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+                row.append("<td>" + item.user_id.S + "</td>"); // 日付
                 row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
 
                 // 他の列を追加する場合は、ここに追加
 
                 tableBody.append(row);
             }
+          }
         }
     }
 });
