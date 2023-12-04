@@ -503,7 +503,7 @@
         for (var i = 0; i < data.scanData.Items.length; i++) {
             var item = data.scanData.Items[i];
 
-          if(item.user_id.S == userId){
+          if(item.user_id.S == userId || item.user_id.S != userId){
             console.log(item.user_id.S+"="+userId);
             if (selectedCategory === 'all' || item.service.S === selectedCategory) {
                 var row = $("<tr>");
