@@ -478,36 +478,38 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
         console.log(item.service.S);
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if (selectedCategory === 'all' || item.service.S === selectedCategory) {
-        var row = $("<tr>");
+      if(item.user_id.S == userId){
+        console.log(item.user_id.S+"="+userId);
+        if (selectedCategory === 'all' || item.service.S === selectedCategory) {
+          var row = $("<tr>");
         
-
-      // 各データプロパティをセルに追加
-      //row.append("<td>" + item.id.N + "</td>"); // 連番ID
-      row.append("<td>" + item.manager_id.S + "</td>"); //記録者
-      row.append("<td>" + item.service.S + "</td>"); // サービス
-      row.append("<td class='deki'>" + item.service_situation.S + "</td>"); // 提供状況
-      row.append("<td class='henka'>変化" + item.user_situation.S + "</td>"); //利用者状況
-      row.append("<td>" + item.effects_service.S + "</td>"); //効果
-    　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
-      row.append("<td>" + item.timestamp.S + "</td>"); // 日付
-      row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
-
-      // 他の列を追加する場合は、ここに追加
-          if (item.service_situation.S=="できなかった") {
-              //row.find("td.deki").css("background-color", "#B0CCE6");
-              row.find("td.deki").css("background-color", "#E6B6B0");
-          }
-          if (item.user_situation.S=="あり") {
-              //row.find("td.henka").css("background-color", "#B0CCE6");
-              row.find("td.henka").css("background-color", "#E6B6B0");
-          }
-          if (item.necessity_planchange.S=="あり") {
-              //row.find("td.plan").css("background-color", "#B0CCE6");
-              row.find("td.plan").css("background-color", "#E6B6B0");
-          }
-        
-      tableBody.append(row);
+        // 各データプロパティをセルに追加
+        //row.append("<td>" + item.id.N + "</td>"); // 連番ID
+        row.append("<td>" + item.manager_id.S + "</td>"); //記録者
+        row.append("<td>" + item.service.S + "</td>"); // サービス
+        row.append("<td class='deki'>" + item.service_situation.S + "</td>"); // 提供状況
+        row.append("<td class='henka'>変化" + item.user_situation.S + "</td>"); //利用者状況
+        row.append("<td>" + item.effects_service.S + "</td>"); //効果
+      　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
+        row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+        row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>"); // Nameプロパティ
+  
+        // 他の列を追加する場合は、ここに追加
+        if (item.service_situation.S=="できなかった") {
+            //row.find("td.deki").css("background-color", "#B0CCE6");
+            row.find("td.deki").css("background-color", "#E6B6B0");
+        }
+        if (item.user_situation.S=="あり") {
+            //row.find("td.henka").css("background-color", "#B0CCE6");
+            row.find("td.henka").css("background-color", "#E6B6B0");
+        }
+        if (item.necessity_planchange.S=="あり") {
+            //row.find("td.plan").css("background-color", "#B0CCE6");
+            row.find("td.plan").css("background-color", "#E6B6B0");
+        }
+          
+        tableBody.append(row);
+        }
       }
     }
   }
