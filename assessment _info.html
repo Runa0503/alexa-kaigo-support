@@ -572,38 +572,41 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
       
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if (selectedCategory === 'all' || item.item_id.S.toString() === selectedCategory ) {
-        if(selectedNum === 'all' || item.assessment_id.N.toString() === selectedNum){
-        var row = $("<tr>");
-          console.log(item.assessment_id.N);
-          console.log(item.assessment_id.N.toString());
+      if(item.user_id.S == userId){
+      console.log(item.user_id.S+"="+userId);
+        if (selectedCategory === 'all' || item.item_id.S.toString() === selectedCategory ) {
+          if(selectedNum === 'all' || item.assessment_id.N.toString() === selectedNum){
+          var row = $("<tr>");
+            console.log(item.assessment_id.N);
+            console.log(item.assessment_id.N.toString());
+    
+            row.append("<td>" + item.item_id.S + "</td>");
+            row.append("<td>" + item.assessment_id.N + "</td>");
+            row.append("<td>" + item.question.S + "</td>");
+            row.append("<td class='yesno'>" + item.yesno.S + "</td>");
+            row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>");
+            row.append("<td>" + item.timestamp.S + "</td>");
+            row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
   
-          row.append("<td>" + item.item_id.S + "</td>");
-          row.append("<td>" + item.assessment_id.N + "</td>");
-          row.append("<td>" + item.question.S + "</td>");
-          row.append("<td class='yesno'>" + item.yesno.S + "</td>");
-          row.append("<td>" + item.contents.SS[2] +", "+ item.contents.SS[1] +", "+ item.contents.SS[0] +"・"+ item.frequency.S + "</td>");
-          row.append("<td>" + item.timestamp.S + "</td>");
-          row.append("<td><button type='button' class='btn btn-secondary'>編集</button></td>");
-
-
-          if (item.item_id.S=="意欲・生きがい" && item.yesno.S=="はい") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
-          if (item.item_id.S=="移動・運動" && selectedNum=="2" && item.yesno.S=="はい") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
-          if (item.item_id.S=="社会参加・対人関" && selectedNum=="18" && item.yesno.S=="はい") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
-          if (item.item_id.S=="社会参加・対人関" && selectedNum=="21" && item.yesno.S=="はい") {
-              row.find("td.yesno").css("background-color", "#B0CCE6");
-          }
-          //if (item.yesno.S=="いいえ") {
-          //    row.find("td.yesno").css("background-color", "#B0CCE6");
-         // }
   
-          tableBody.append(row);
+            if (item.item_id.S=="意欲・生きがい" && item.yesno.S=="はい") {
+                row.find("td.yesno").css("background-color", "#B0CCE6");
+            }
+            if (item.item_id.S=="移動・運動" && selectedNum=="2" && item.yesno.S=="はい") {
+                row.find("td.yesno").css("background-color", "#B0CCE6");
+            }
+            if (item.item_id.S=="社会参加・対人関" && selectedNum=="18" && item.yesno.S=="はい") {
+                row.find("td.yesno").css("background-color", "#B0CCE6");
+            }
+            if (item.item_id.S=="社会参加・対人関" && selectedNum=="21" && item.yesno.S=="はい") {
+                row.find("td.yesno").css("background-color", "#B0CCE6");
+            }
+            //if (item.yesno.S=="いいえ") {
+            //    row.find("td.yesno").css("background-color", "#B0CCE6");
+           // }
+    
+            tableBody.append(row);
+          }
         }
       }
     }
