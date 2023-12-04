@@ -242,27 +242,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./sign_up.html">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#people"/></svg>
                 利用者一覧
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./service_delivery.html">
-                <svg class="bi"><use xlink:href="#file-earmark"/></svg>
-                サービス提供状況
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./monitoring_info.html">
-                <svg class="bi"><use xlink:href="#cart"/></svg>
-                モニタリング情報
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./assessment _info.html">
-                <svg class="bi"><use xlink:href="#graph-up"/></svg>
-                アセスメント情報
               </a>
             </li>
 
@@ -375,14 +357,13 @@ function populateTable(data) {
     for (var i = 0; i < data.scanData.Items.length; i++) {
         var item = data.scanData.Items[i];
         console.log(item);
-        // カテゴリーが選択されたものであるかを確認する条件を追加
+
         var row = $("<tr>");
         
-
         // 各データプロパティをセルに追加
         //row.append("<td>" + item.id.N + "</td>"); // 連番ID
-        row.append("<td>" + item.user_id.S + "</td>"); //記録者
-        row.append("<td>" + item.mail.S + "</td>"); // サービス
+        row.append("<td><a class='nav-link d-flex align-items-center gap-2' href='./monitoring_info.html'>" + item.user_id.S + "</a></td>"); //高齢者
+        row.append("<td>" + item.mail.S + "</td>"); // メール
         
         tableBody.append(row);
     }
