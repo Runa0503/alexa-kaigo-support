@@ -253,19 +253,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" id = "sa" href="#">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 サービス提供状況
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./monitoring_info.html">
+              <a class="nav-link d-flex align-items-center gap-2" id = "mo" href="./monitoring_info.html">
                 <svg class="bi"><use xlink:href="#cart"/></svg>
                 モニタリング情報
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="./assessment _info.html">
+              <a class="nav-link d-flex align-items-center gap-2" id = "asse" href="./assessment _info.html">
                 <svg class="bi"><use xlink:href="#graph-up"/></svg>
                 アセスメント情報
               </a>
@@ -362,6 +362,28 @@
 $(document).ready(function () {
   var tableBody = $("#data-table tbody");
 
+    var requestData = {
+        "OperationType": "SCAN"// リクエストデータをここに設定
+    };
+
+    var selectedCategory = "all";
+    // Ajaxリクエストを送信
+    $.ajax({
+      url: "https://r4coejm7ag.execute-api.us-east-2.amazonaws.com/sa_POST/servicedelivery",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({"OperationType": "SCAN"}),
+      success: function (data) {
+        // データを取得した後に populateTable 関数を呼び出す
+        populateTable(data, selectedCategory);
+      },
+      error: function (error) {
+        console.error("データの取得に失敗しました: " + error);
+      }
+    });
+
+
+  
   // Select要素の参照を取得
   var opinionFilter = document.getElementById('opinionFilter');
   
