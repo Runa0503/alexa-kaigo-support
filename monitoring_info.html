@@ -383,10 +383,31 @@
  $(document).ready(function () {
     var tableBody = $("#data-table tbody");
 
+   var requestData = {
+        "OperationType": "SCAN"
+        // リクエストデータをここに設定
+    };
+
+     var selectedCategor = 'all';
+    // Ajaxリクエストを送信
+    $.ajax({
+        url: "https://jsxr6jpgc8.execute-api.us-east-2.amazonaws.com/mo_POST/monitoring",
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(requestData),
+        success: function (data) {
+            populateTable(data, selectedCategor);
+        },
+        error: function (error) {
+            console.error("データの取得に失敗しました: " + error);
+        }
+    });
+   
+
     // Select要素の参照を取得
     var opinionFilter = document.getElementById('opinionFilter');
 
-    // opinionFilter に対するイベントリスナーを設定
+  // opinionFilter に対するイベントリスナーを設定
     opinionFilter.addEventListener('change', function () {
         // 選択されたオプションの値を取得
         var selectedCategory = opinionFilter.value;
@@ -420,7 +441,6 @@
       const urlParams = new URLSearchParams(window.location.search);
       // user_idパラメータの値を取得
       const userId = urlParams.get('user_id');
-
       if (userId) {
         // ここにuser_idを使った処理を追加
         console.log('User ID:', userId);
