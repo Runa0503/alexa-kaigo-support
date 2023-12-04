@@ -316,9 +316,9 @@
             <tr>
               <th scope="col">氏名</th>
               <th scope="col">メール</th>
+              <th scope="col">最終記録日時</th>
               <th scope="col">電話番号</th>
               <th scope="col">住所</th>
-              <th scope="col">最終記録日時</th>
             </tr>
           </thead>
           <tbody>
@@ -366,6 +366,7 @@ function populateTable(data) {
     // 各データプロパティをセルに追加
     row.append("<td><a class='nav-link d-flex align-items-center gap-2 user-link' href='#'>" + item.user_id.S + "</a></td>"); //高齢者
     row.append("<td>" + item.mail.S + "</td>"); // メール
+    row.append("<td>" + item.timestamp.S + "</td>"); 
     
     tableBody.append(row);
   }
