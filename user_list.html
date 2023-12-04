@@ -350,6 +350,7 @@ $(document).ready(function () {
 });
 
 function populateTable(data) {
+  var tableBody = $("#data-table tbody");
     // timestamp でデータをソート
     data.scanData.Items.sort(function(a, b) {
         return new Date(b.timestamp.S) - new Date(a.timestamp.S);
