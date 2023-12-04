@@ -403,7 +403,7 @@
 function submitFormAndRedirect(rowId) {
       console.log("Clicked Row ID:", rowId);
       // リダイレクト先のURL
-      window.location.href = "./update.html?user_id=" + encodeURIComponent(rowId)+"?user_id="+encodeURIComponent('Assessment');
+      window.location.href = "./update.html?rowId=" + encodeURIComponent(rowId)+"?tableName="+encodeURIComponent('Assessment');
   }
   
 $(document).ready(function () {
