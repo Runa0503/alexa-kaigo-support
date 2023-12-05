@@ -394,7 +394,9 @@ function convertObjectValueToString(obj) {
   document.getElementById("delete").addEventListener("click", function() {
     // ここに delete ボタンがクリックされたときの処理を追加
     alert("Delete ボタンがクリックされました");
+    const confirmation = confirm("本当に削除しますか？");
 
+    if (confirmation) {
   .ajax({
   url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
   type: "POST",
@@ -411,7 +413,8 @@ function convertObjectValueToString(obj) {
     document.getElementById("resultMessage").innerHTML = "削除に失敗しました。";
     document.getElementById("resultMessage").style.color = "red"; 
   }
-});
+  });
+  }
   });
 
 </script>
