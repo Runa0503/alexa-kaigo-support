@@ -554,6 +554,8 @@
                   }
               }
               console.log(feelingData);
+              var ctx = document.getElementById('myChart').getContext('2d');
+              ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
               // チャート描画前にチャートのCanvasをクリア
               var ctx = document.getElementById('feelingChart').getContext('2d');
               ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
