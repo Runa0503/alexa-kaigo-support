@@ -390,8 +390,8 @@ $.ajax({
   
 function displayFormData(data) {
     // rowIdを使って必要なデータを取得する処理（例：APIリクエストを送信
-  for (var i = 0; i < data.scanData.Items.length; i++) {
-      var item = data.scanData.Items[i];
+  //for (var i = 0; i < data.queryData.Items.length; i++) {
+      var item = data.queryData.Items[0];
       // itemの各プロパティに対してループ
     for (const propertyName in item) {
       // プロパティの値を取得
@@ -404,7 +404,7 @@ function displayFormData(data) {
       // 作成した<p>要素をHTMLに追加
       document.getElementById("outputContainer").appendChild(paragraphElement);
     }
-  }
+  //}
 }
 });
 </script>
