@@ -565,6 +565,17 @@ $(document).ready(function () {
         return new Date(b.timestamp.S) - new Date(a.timestamp.S);
     });
 
+    // チャート用のデータ
+    var chartData = {
+        labels: [], // X軸のラベル
+        datasets: [{
+            label: 'Frequency', // データセットのラベル
+            borderColor: 'rgb(75, 192, 192)', // 折れ線の色
+            data: [], // データの値
+            fill: false // 折れ線の下を塗るかどうか
+        }]
+    };
+
     for (var i = 0; i < data.scanData.Items.length; i++) {
         var item = data.scanData.Items[i];
 
