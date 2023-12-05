@@ -397,7 +397,7 @@ function convertObjectValueToString(obj) {
     const confirmation = confirm("本当に削除しますか？");
 
     if (confirmation) {
-  .ajax({
+  $.ajax({
   url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
   type: "POST",
   dataType: "json",
