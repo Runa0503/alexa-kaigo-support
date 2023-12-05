@@ -389,22 +389,20 @@ $.ajax({
 });
   
 function displayFormData(data) {
-    // rowIdを使って必要なデータを取得する処理（例：APIリクエストを送信
-  //for (var i = 0; i < data.queryData.Items.length; i++) {
-      var item = data.queryData.Items[0];
-      // itemの各プロパティに対してループ
+    var item = data.queryData.Items[0];
+
     for (const propertyName in item) {
-      // プロパティの値を取得
-      const propertyValue = Array.isArray(item[propertyName]) ? item[propertyName].join(', ') : item[propertyName];
+        const propertyValue = Array.isArray(item[propertyName])
+            ? item[propertyName].join(', ')
+            : (typeof item[propertyName] === 'object'
+                ? JSON.stringify(item[propertyName])
+                : item[propertyName]);
 
-      // プロパティ名とプロパティの値を含む<p>要素を作成
-      const paragraphElement = document.createElement('p');
-      paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}" readonly>`;
+        const paragraphElement = document.createElement('p');
+        paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}" readonly>`;
 
-      // 作成した<p>要素をHTMLに追加
-      document.getElementById("outputContainer").appendChild(paragraphElement);
+        document.getElementById("outputContainer").appendChild(paragraphElement);
     }
-  //}
 }
 });
 </script>
