@@ -390,6 +390,7 @@ $.ajax({
   
 function displayFormData(data) {
     var item = data.queryData.Items[0];
+  　console.log(item);
 
     for (const propertyName in item) {
         const propertyValue = Array.isArray(item[propertyName])
