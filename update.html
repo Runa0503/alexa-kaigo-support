@@ -395,7 +395,7 @@ function displayFormData(data) {
         const propertyValue = Array.isArray(item[propertyName])
             ? item[propertyName].join(', ')
             : (typeof item[propertyName] === 'object'
-                ? JSON.stringify(item[propertyName])
+                ? stringifyObject(item[propertyName])
                 : item[propertyName]);
 
         const paragraphElement = document.createElement('p');
@@ -404,6 +404,16 @@ function displayFormData(data) {
         document.getElementById("outputContainer").appendChild(paragraphElement);
     }
 }
+
+function stringifyObject(obj) {
+    try {
+        // JSON.stringifyでエラーが発生する可能性があるため、try-catchを使用
+        return JSON.stringify(obj);
+    } catch (e) {
+        return "Cannot stringify object";
+    }
+}
+
 });
 </script>
           
