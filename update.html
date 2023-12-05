@@ -404,19 +404,20 @@ function displayFormData2(callback) {
                 acc[`value${index + 1}`] = value;
                 return acc;
             }, {});
-        } else if (propertyName === 'assessment_id'||propertyName === 'id') {
-            // "assessment_id" が数値の場合は数値に変換
+        } else if (propertyName === 'assessment_id' || propertyName === 'id') {
+            // "assessment_id" および "id" が数値の場合は数値に変換
             propertyValue = Number(propertyValue);
         }
 
         // requestDataオブジェクトに値を追加
-        requestData.body[propertyName] = propertyValue;
+        if (propertyName !== 'id') {
+            // "id" 以外のプロパティを追加
+            requestData.body[propertyName] = propertyValue;
+        }
     }
 
-    console.log(requestData); // デバッグ用
-
-    // コールバック関数が指定されていれば呼び出す
-    if (callback) {
+    // コールバック関数の実行
+    if (typeof callback === 'function') {
         callback(requestData);
     }
 }
@@ -442,6 +443,7 @@ document.getElementById("update").addEventListener("click", function() {
                 dataType: "json",
                 data: JSON.stringify({
                     "tableName": tableName,
+                  　"updateTargetId": rowId,
                     "body": requestData
                 }),
                 success: function(data) {
