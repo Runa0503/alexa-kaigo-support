@@ -404,7 +404,7 @@ function displayFormData2(callback) {
                 acc[`value${index + 1}`] = value;
                 return acc;
             }, {});
-        } else if (propertyName === 'assessment_id') {
+        } else if (propertyName === 'assessment_id'||propertyName === 'id') {
             // "assessment_id" が数値の場合は数値に変換
             propertyValue = Number(propertyValue);
         }
@@ -441,7 +441,6 @@ document.getElementById("update").addEventListener("click", function() {
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify({
-                    "updateTargetId": rowId,
                     "tableName": tableName,
                     "body": requestData.body
                 }),
