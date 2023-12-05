@@ -89,6 +89,11 @@
       .bd-mode-toggle {
         z-index: 1500;
       }
+      canvas#myChart {
+            width: 50%; /* 100% 幅 */
+            height: 200px; /* 適切な高さを指定 */
+            /* 他のスタイルを追加できます */
+        }
     </style>
  
     <!-- Custom styles for this template -->
@@ -102,6 +107,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Chart.js を読み込む -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!--アイコン読みこみ-->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -381,6 +388,8 @@
       </div>
 
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
+      <h2>頻度</h2>
+      <canvas id="myChart" width="400" height="400"></canvas>
       
       <h2>質問・回答</h2>
       <div class="table-responsive small">
@@ -513,6 +522,40 @@ $(document).ready(function () {
     });
   });
 
+  function parseFrequency(frequencyString) {
+    // "-" の場合や数値でない場合は 0 を返す
+    if (frequencyString === "-" || isNaN(parseFloat(frequencyString))) {
+        return 0;
+    }
+
+    // 数値の場合はそのまま返す
+    if (!isNaN(parseFloat(frequencyString))) {
+        return parseFloat(frequencyString);
+    }
+
+    // "週三回"や"月二回"、"週二"のような場合の処理
+    const matches = frequencyString.match(/(\d+)\s*([^\d\s]+)/);
+    if (matches && matches.length === 3) {
+        const number = parseFloat(matches[1]);
+        const unit = matches[2].toLowerCase(); // 単位を小文字に変換して統一
+
+        // 単位によって数値を変換
+        switch (unit) {
+            case '回':
+                return number;
+            case '週':
+                return number * (unit === '週二' ? 2 : 4); // "週二"の場合は2週と仮定し、それ以外は4週と仮定
+            case '月':
+                return number;
+            default:
+                return 0;
+        }
+    }
+
+    return 0;
+}
+
+
   function populateTable(data, selectedCategory, selectedNum) {
     // テーブルの内容をクリア
     tableBody.empty();
@@ -561,10 +604,38 @@ $(document).ready(function () {
            // }
     
             tableBody.append(row);
+            // チャート用のデータを更新
+          chartData.labels.push(item.timestamp.S); // X軸にタイムスタンプを追加
+          chartData.datasets[0].data.push(parseFrequency(item.frequency.S)); // データセットにfrequencyを変換して追加
           }
         }
       }
     }
+    // チャートを生成
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day' // タイムスタンプの表示単位を日単位に設定
+                    },
+                    title: {
+                        display: true,
+                        text: 'Timestamp'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Frequency'
+                    }
+                }
+            }
+        }
   }
 });
 
