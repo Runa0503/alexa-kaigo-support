@@ -421,6 +421,7 @@ function displayFormData2() {
 
     if (confirmation) {
       const requestData = displayFormData2();
+      console.log(requestData);
         
       $.ajax({
       url: "https://zckb4ngkad.execute-api.us-east-2.amazonaws.com/up_post/update_post",
