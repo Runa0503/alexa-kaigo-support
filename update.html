@@ -320,44 +320,13 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
-<!------ filter ------>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-6">
-                <select class="js-filter" name="opinion" id="opinionFilter">
-                  <option value="all">全項目表示</option>
-                  <option value="配食">配食</option>
-                  <option value="訪問理容">訪問理容</option>
-                  <option value="訪問介護">訪問介護</option>
-                  <option value="配達">配達</option>
-                </select>
-              </div>
-            </div>
-          </div>
-      </div>
-
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
 
       <h2>内容編集</h2>
-      <div class="table-responsive small">
-        <table class="table table-striped table-sm" id="data-table">
-          <thead>
-            <tr>
-              <th scope="col">記録者</th>
-              <th scope="col">サービス</th>
-              <th scope="col">計画通り実施できたか</th>
-              <th scope="col">利用者の状況</th>
-              <th scope="col">サービス実施の効果</th>
-              <th scope="col">計画変更の有無</th>
-              <th scope="col">日付</th>
-            </tr>
-          </thead>
-
-          <tbody>
-          </tbody>
-        </table>
-
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+        <p id="resultMessage"></p>
+      </div>
+        
         <div id="outputContainer"></div>
 
         <div id="buts">
@@ -425,6 +394,24 @@ function convertObjectValueToString(obj) {
   document.getElementById("delete").addEventListener("click", function() {
     // ここに delete ボタンがクリックされたときの処理を追加
     alert("Delete ボタンがクリックされました");
+
+  .ajax({
+  url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
+  type: "POST",
+  dataType: "json",
+  data: JSON.stringify({"OperationType": "QUERY", "deleteTargetId": rowId, "tableName" : tableName}),
+  success: function () {
+    // データを取得した後に populateTable 関数を呼び出す
+    console.log("削除に成功しました。");
+    document.getElementById("resultMessage").innerHTML = "削除が成功しました。";
+    document.getElementById("resultMessage").style.color = "green"; 
+  },
+  error: function (error) {
+    console.error("データの取得に失敗しました: " + error);
+    document.getElementById("resultMessage").innerHTML = "削除に失敗しました。";
+    document.getElementById("resultMessage").style.color = "red"; 
+  }
+});
   });
 
 </script>
