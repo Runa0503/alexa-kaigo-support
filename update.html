@@ -421,10 +421,9 @@ function displayFormData2() {
   
 // "update" ボタンのクリックイベント
   document.getElementById("update").addEventListener("click", function() {
-    // ここに update ボタンがクリックされたときの処理を追加
-    alert("Update ボタンがクリックされました");
     const urlParams = new URLSearchParams(window.location.search);
-    const rowId = urlParams.get('rowId');
+    //const rowId = urlParams.get('rowId');
+    const rowId = Number(urlParams.get('rowId'));
     const tableName = urlParams.get('tableName');
   　console.log(rowId+" "+tableName);
     
