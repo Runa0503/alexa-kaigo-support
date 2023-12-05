@@ -433,7 +433,8 @@ document.getElementById("update").addEventListener("click", function() {
     if (confirmation) {
         // 非同期処理が完了した後に実行するコールバック関数
         const updateCallback = function(requestData) {
-            console.log(requestData);
+            console.log(requestData.body);
+            console.log(requestData.body);
 
             $.ajax({
                 url: "https://zckb4ngkad.execute-api.us-east-2.amazonaws.com/up_post/update_post",
@@ -442,7 +443,7 @@ document.getElementById("update").addEventListener("click", function() {
                 data: JSON.stringify({
                     "updateTargetId": rowId,
                     "tableName": tableName,
-                    "body": requestData
+                    "body": requestData.body
                 }),
                 success: function() {
                     // データを取得した後に populateTable 関数を呼び出す
