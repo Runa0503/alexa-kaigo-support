@@ -486,6 +486,7 @@
             }          
             // チャート描画
             function drawFeelingChart(data) {
+              　console.log(feelingData);
                 var ctx = document.getElementById('feelingChart').getContext('2d');
                 var chartData = createFeelingChartData(data);
                 var myPieChart = new Chart(ctx, {
