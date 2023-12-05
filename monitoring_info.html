@@ -483,10 +483,17 @@
                         backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
                     }],
                 };
-            }          
+            }
+            var myPieChart;
             // チャート描画
             function drawFeelingChart(data) {
                 var ctx = document.getElementById('feelingChart').getContext('2d');
+                
+                // 以前のChartオブジェクトが存在する場合、破棄
+                if (myPieChart) {
+                    myPieChart.destroy();
+                }
+              
                 var chartData = createFeelingChartData(data);
                 var myPieChart = new Chart(ctx, {
                     type: 'pie',
@@ -495,14 +502,13 @@
             }
         
             function populateTable(data, selectedCategory) {
+              // テーブルの内容をクリア
+              tableBody.empty();
               var feelingData = {
                   '満足': 0,
                   '不満足': 0,
                   '判断不能': 0
               };
-          
-              // テーブルの内容をクリア
-              tableBody.empty();
           
               if (userId) {
                   // ここにuser_idを使った処理を追加
