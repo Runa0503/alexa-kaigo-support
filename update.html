@@ -401,7 +401,7 @@ function convertObjectValueToString(obj) {
   url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
   type: "POST",
   dataType: "json",
-  data: JSON.stringify({"OperationType": "QUERY", "deleteTargetId": rowId, "tableName" : tableName}),
+  data: JSON.stringify({"deleteTargetId": rowId, "tableName" : tableName}),
   success: function () {
     // データを取得した後に populateTable 関数を呼び出す
     console.log("削除に成功しました。");
