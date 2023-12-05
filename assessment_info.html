@@ -89,7 +89,7 @@
       .bd-mode-toggle {
         z-index: 1500;
       }
-      canvas#myChart {
+      canvas#myChart2 {
             width: 50%; /* 100% 幅 */
             height: 200px; /* 適切な高さを指定 */
             /* 他のスタイルを追加できます */
@@ -389,7 +389,7 @@
 
       <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
       <h2>頻度</h2>
-      <canvas id="myChart" width="400" height="400"></canvas>
+      <canvas id="myChart2" width="400" height="400"></canvas>
       
       <h2>質問・回答</h2>
       <div class="table-responsive small">
@@ -612,8 +612,8 @@ $(document).ready(function () {
       }
     }
     // チャートを生成
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart2 = new Chart(ctx, {
         type: 'line',
         data: chartData,
         options: {
