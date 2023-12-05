@@ -386,8 +386,51 @@ function convertObjectValueToString(obj) {
 // "update" ボタンのクリックイベント
   document.getElementById("update").addEventListener("click", function() {
     // ここに update ボタンがクリックされたときの処理を追加
-    
     alert("Update ボタンがクリックされました");
+    const urlParams = new URLSearchParams(window.location.search);
+    const rowId = urlParams.get('rowId');
+    const tableName = urlParams.get('tableName');
+  　console.log(rowId+" "+tableName);
+    
+    const confirmation = confirm("更新しますか？");
+
+    if (confirmation) {
+    var requestData = {
+          "body": {
+            "assessment_id": "99",
+            "contents": {
+              "value1": "テスト用コンテンツ1",
+              "value2": "テスト用コンテンツ2",
+              "value3": "テスト用コンテンツ3"
+            },
+            "frequency": "デイリー",
+            "item_id": "テスト",
+            "question": "これはテストですか？",
+            "timestamp": "2023-11-26T6:04:14.864Z",
+            "user_id": "田中",
+            "yesno": "はい"
+          }
+    };
+      
+    $.ajax({
+    url: "https://zckb4ngkad.execute-api.us-east-2.amazonaws.com/up_post/update_post",
+    type: "POST",
+    dataType: "json",
+    data: JSON.stringify({"updateTargetId": rowId, "tableName" : tableName, requestData}),
+    success: function () {
+      // データを取得した後に populateTable 関数を呼び出す
+      console.log("削除に成功しました。");
+      document.getElementById("resultMessage").innerHTML = "更新に成功しました。";
+      document.getElementById("resultMessage").style.color = "green"; 
+    },
+    error: function (error) {
+      console.error("データの取得に失敗しました: " + error);
+      document.getElementById("resultMessage").innerHTML = "更新に失敗しました。";
+      document.getElementById("resultMessage").style.color = "red"; 
+    }
+    });
+  }
+    
   });
 
   // "delete" ボタンのクリックイベント
