@@ -371,6 +371,7 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const rowId = urlParams.get('rowId');
     const tableName = urlParams.get('tableName');
+  　consol.log(rowId+" "+tableName);
 
     // クエリパラメータ 'id' が存在する場合
     if (rowId) {
@@ -383,7 +384,7 @@ $.ajax({
   url: "https://boq1gabbg9.execute-api.us-east-2.amazonaws.com/get_post/GetPost",
   type: "POST",
   dataType: "json",
-  data: JSON.stringify({"OperationType": "SCAN", "updateTargetId": rowId,"tableName" : tableName}),
+  data: JSON.stringify({"OperationType": "QUERY", "updateTargetId": rowId, "tableName" : tableName}),
   success: function (data) {
     // データを取得した後に populateTable 関数を呼び出す
     displayFormData(data);
