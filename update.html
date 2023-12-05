@@ -373,13 +373,6 @@ $(document).ready(function () {
     const tableName = urlParams.get('tableName');
   　console.log(rowId+" "+tableName);
 
-    // クエリパラメータ 'id' が存在する場合
-    if (rowId) {
-        // フォームにデータを表示する処理
-        displayFormData(rowId);
-    }
-});
-
 $.ajax({
   url: "https://boq1gabbg9.execute-api.us-east-2.amazonaws.com/get_post/GetPost",
   type: "POST",
@@ -387,6 +380,7 @@ $.ajax({
   data: JSON.stringify({"OperationType": "QUERY", "updateTargetId": rowId, "tableName" : tableName}),
   success: function (data) {
     // データを取得した後に populateTable 関数を呼び出す
+    console.log(data);
     displayFormData(data);
   },
   error: function (error) {
