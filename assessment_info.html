@@ -618,6 +618,11 @@ $(document).ready(function () {
             }
         }
     }
+    // チャートを生成する前に既存のチャートを破棄
+    myChart.destroy();
+    if (myChart2) {
+        myChart2.destroy();
+    }
     // チャートを生成
     var ctx = document.getElementById('myChart2').getContext('2d');
     var myChart2 = new Chart(ctx, {
