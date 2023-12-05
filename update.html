@@ -358,7 +358,7 @@
           </tbody>
         </table>
 
-        <div id="formElement"></div>
+        <div id="outputContainer"></div>
 
         <div id="buts">
           <button type='button' class='btn btn-secondary' id='update'>追加・更新</button>
@@ -379,31 +379,37 @@ $(document).ready(function () {
     }
 });
 
-function displayFormData(rowId) {
-    // rowIdを使って必要なデータを取得する処理（例：APIリクエストを送信）
-    // ここではサンプルデータを使用
-    const sampleData = {
-        id: rowId,
-        item_id: 'SampleItemID',
-        assessment_id: 'SampleAssessmentID',
-        question: 'SampleQuestion',
-        yesno: 'Yes',
-        contents: ['Content1', 'Content2', 'Content3'],
-        frequency: 'SampleFrequency',
-        timestamp: '2023-01-01T12:34:56Z'
-    };
+$.ajax({
+  url: "https://boq1gabbg9.execute-api.us-east-2.amazonaws.com/get_post/GetPost",
+  type: "POST",
+  dataType: "json",
+  data: JSON.stringify({"OperationType": "SCAN", "updateTargetId": rowId,"tableName" : tableName}),
+  success: function (data) {
+    // データを取得した後に populateTable 関数を呼び出す
+    displayFormData(data);
+  },
+  error: function (error) {
+    console.error("データの取得に失敗しました: " + error);
+  }
+});
+  
+function displayFormData(data) {
+    // rowIdを使って必要なデータを取得する処理（例：APIリクエストを送信
+  for (var i = 0; i < data.scanData.Items.length; i++) {
+      var item = data.scanData.Items[i];
+      // itemの各プロパティに対してループ
+    for (const propertyName in item) {
+      // プロパティの値を取得
+      const propertyValue = Array.isArray(item[propertyName]) ? item[propertyName].join(', ') : item[propertyName];
 
-    // フォームにデータを表示する処理
-    const formElement = document.getElementById('formElement');
-    formElement.innerHTML = '<p>ID: ' + sampleData.id + '</p>' +
-                            '<p>item_id: ' + sampleData.item_id + '</p>' +
-                            '<p>assessment_id: ' + sampleData.assessment_id + '</p>' +
-                            '<p>question: ' + sampleData.question + '</p>' +
-                            '<p>yesno: ' + sampleData.yesno + '</p>' +
-                            '<p>contents: ' + sampleData.contents.join(', ') + '</p>' +
-                            '<p>frequency: ' + sampleData.frequency + '</p>' +
-                            '<p>timestamp: ' + sampleData.timestamp + '</p>';
-}
+      // プロパティ名とプロパティの値を含む<p>要素を作成
+      const paragraphElement = document.createElement('p');
+      paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}" readonly>`;
+
+      // 作成した<p>要素をHTMLに追加
+      document.getElementById("outputContainer").appendChild(paragraphElement);
+    }
+  }
 
       
 </script>
