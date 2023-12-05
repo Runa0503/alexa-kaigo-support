@@ -102,6 +102,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!--アイコン読みこみ-->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -335,8 +336,11 @@
               </div>
             </div>
         </div>
-  
+
+        <h2>満足度</h2>
         <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
+        <!-- 追加のcanvas要素（円グラフ用） -->
+        <canvas class="my-4 w-100" id="feelingChart" width="400" height="400"></canvas>
         
         <h2>質問・回答</h2>
         <div class="table-responsive small">
@@ -467,46 +471,81 @@
                     }
                 });
             });
+            // チャート描画
+            function drawFeelingChart(data) {
+                var ctx = document.getElementById('feelingChart').getContext('2d');
+                var chartData = createFeelingChartData(data);
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: chartData,
+                });
+            }
         
             function populateTable(data, selectedCategory) {
+                var feelingData = {
+                    '満足': 0,
+                    '不満足': 0,
+                    '測定不能': 0
+                };
+            
                 // テーブルの内容をクリア
                 tableBody.empty();
-                
+            
                 if (userId) {
-                // ここにuser_idを使った処理を追加
-                console.log('User ID:', userId);
+                    // ここにuser_idを使った処理を追加
+                    console.log('User ID:', userId);
                 } else {
-                console.error('User ID not found in the URL.');
+                    console.error('User ID not found in the URL.');
                 }
-        
+            
                 // timestamp でデータをソート
                 data.scanData.Items.sort(function (a, b) {
                     return new Date(b.timestamp.S) - new Date(a.timestamp.S);
                 });
-        
+            
                 for (var i = 0; i < data.scanData.Items.length; i++) {
                     var item = data.scanData.Items[i];
-        
-                    if(item.user_id.S == userId || item.user_id.S != userId){
-                    console.log(item.user_id.S+"="+userId);
-                    if (selectedCategory === 'all' || item.service.S === selectedCategory) {
-                        var row = $("<tr>");
-        
-                        // 各データプロパティをセルに追加
-                        row.append("<td>" + item.id.N + "</td>"); // 連番ID
-                        row.append("<td>" + item.service.S + "</td>"); // サービス
-                        row.append("<td>" + item.quality.S + "</td>"); // 適切か
-                        row.append("<td>" + item.feeling.S + "</td>"); // 満足度
-                        row.append("<td>" + item.timestamp.S + "</td>"); // 日付
-                        row.append("<td>" + item.user_id.S + "</td>"); // 日付
-                        row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
-        
-                        // 他の列を追加する場合は、ここに追加
-        
-                        tableBody.append(row);
-                    }
+            
+                    if (item.user_id.S == userId || item.user_id.S != userId) {
+                        console.log(item.user_id.S + "=" + userId);
+                        if (selectedCategory === 'all' || item.service.S === selectedCategory) {
+                            var row = $("<tr>");
+            
+                            // 各データプロパティをセルに追加
+                            row.append("<td>" + item.id.N + "</td>"); // 連番ID
+                            row.append("<td>" + item.service.S + "</td>"); // サービス
+                            row.append("<td>" + item.quality.S + "</td>"); // 適切か
+                            row.append("<td>" + item.feeling.S + "</td>"); // 満足度
+                            row.append("<td>" + item.timestamp.S + "</td>"); // 日付
+                            row.append("<td>" + item.user_id.S + "</td>"); // 日付
+                            row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
+            
+                            // 他の列を追加する場合は、ここに追加
+            
+                            tableBody.append(row);
+            
+                            // 値取得
+                            var feeling = item.feeling.S;
+                            if (feeling in feelingData) {
+                                feelingData[feeling]++;
+                            } else {
+                                feelingData[feeling] = 1;
+                            }
+                        }
                     }
                 }
+            
+                // チャート描画
+                drawFeelingChart(feelingData);
+            
+                // return文の位置を修正
+                return {
+                    labels: labels,
+                    datasets: [{
+                        data2: values,
+                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
+                    }],
+                };
             }
         });
         </script>
