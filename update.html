@@ -433,7 +433,7 @@ document.getElementById("update").addEventListener("click", function() {
     if (confirmation) {
         // 非同期処理が完了した後に実行するコールバック関数
         const updateCallback = function(requestData) {
-            console.log(requestData.body);
+            console.log(requestData);
             console.log(requestData.body);
 
             $.ajax({
@@ -442,16 +442,16 @@ document.getElementById("update").addEventListener("click", function() {
                 dataType: "json",
                 data: JSON.stringify({
                     "tableName": tableName,
-                    "body": requestData.body
+                    "body": requestData
                 }),
-                success: function() {
+                success: function(data) {
                     // データを取得した後に populateTable 関数を呼び出す
-                    console.log("削除に成功しました。");
+                    console.log("更新に成功しました。");
                     document.getElementById("resultMessage").innerHTML = "更新に成功しました。";
                     document.getElementById("resultMessage").style.color = "green";
                 },
                 error: function(error) {
-                    console.error("データの取得に失敗しました: " + error);
+                    console.error("更新に失敗しました: " + error);
                     document.getElementById("resultMessage").innerHTML = "更新に失敗しました。";
                     document.getElementById("resultMessage").style.color = "red";
                 }
