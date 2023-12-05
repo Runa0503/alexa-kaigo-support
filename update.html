@@ -396,7 +396,15 @@ function displayFormData2() {
     for (const paragraphElement of paragraphElements) {
         // p要素からプロパティ名と値を取得
         const propertyName = paragraphElement.querySelector('strong').innerText;
-        const propertyValue = paragraphElement.querySelector('input').value;
+        let propertyValue = paragraphElement.querySelector('input').value;
+
+        // contents プロパティの場合、新しいオブジェクトとして処理
+        if (propertyName === 'contents') {
+            propertyValue = propertyValue.split(', ').reduce((acc, value, index) => {
+                acc[`value${index + 1}`] = value;
+                return acc;
+            }, {});
+        }
 
         // requestDataオブジェクトに値を追加
         requestData.body[propertyName] = propertyValue;
@@ -406,6 +414,7 @@ function displayFormData2() {
     console.log(requestData);
     return requestData;
 }
+
 
   
 // "update" ボタンのクリックイベント
