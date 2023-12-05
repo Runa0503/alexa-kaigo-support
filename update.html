@@ -390,14 +390,9 @@ $.ajax({
   
 function displayFormData(data) {
     var item = data.queryData.Items[0];
-  　console.log(item);
 
     for (const propertyName in item) {
-        const propertyValue = Array.isArray(item[propertyName])
-            ? item[propertyName].join(', ')
-            : (typeof item[propertyName] === 'object'
-                ? stringifyObject(item[propertyName])
-                : item[propertyName]);
+        const propertyValue = convertObjectValueToString(item[propertyName]);
 
         const paragraphElement = document.createElement('p');
         paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}" readonly>`;
@@ -406,14 +401,18 @@ function displayFormData(data) {
     }
 }
 
-function stringifyObject(obj) {
-    try {
-        // JSON.stringifyでエラーが発生する可能性があるため、try-catchを使用
-        return JSON.stringify(obj);
-    } catch (e) {
-        return "Cannot stringify object";
+function convertObjectValueToString(obj) {
+    if (obj.N) {
+        return obj.N; // 数値の場合
+    } else if (obj.S) {
+        return obj.S; // 文字列の場合
+    } else if (obj.SS) {
+        return obj.SS.join(', '); // 文字列の配列の場合
+    } else {
+        return "Cannot convert object";
     }
 }
+
 
 });
 </script>
