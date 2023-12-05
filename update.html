@@ -442,7 +442,7 @@ document.getElementById("update").addEventListener("click", function() {
                 data: JSON.stringify({
                     "updateTargetId": rowId,
                     "tableName": tableName,
-                    "requestData": requestData
+                    "body": requestData
                 }),
                 success: function() {
                     // データを取得した後に populateTable 関数を呼び出す
