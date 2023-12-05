@@ -486,7 +486,6 @@
             }          
             // チャート描画
             function drawFeelingChart(data) {
-              　console.log(feelingData);
                 var ctx = document.getElementById('feelingChart').getContext('2d');
                 var chartData = createFeelingChartData(data);
                 var myPieChart = new Chart(ctx, {
@@ -548,7 +547,7 @@
                       }
                   }
               }
-          
+              console.log(feelingData);
               // チャート描画前にチャートのCanvasをクリア
               var ctx = document.getElementById('feelingChart').getContext('2d');
               ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
