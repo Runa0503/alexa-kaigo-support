@@ -404,16 +404,18 @@ function displayFormData2() {
                 acc[`value${index + 1}`] = value;
                 return acc;
             }, {});
+        } else if (propertyName === 'assessment_id') {
+            // "assessment_id" が数値の場合は数値に変換
+            propertyValue = Number(propertyValue);
         }
 
         // requestDataオブジェクトに値を追加
         requestData.body[propertyName] = propertyValue;
     }
 
-    // requestDataオブジェクトの表示
-    console.log(requestData);
-    return requestData;
+    console.log(requestData); // デバッグ用
 }
+
 
 
   
