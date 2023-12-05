@@ -383,7 +383,7 @@ function convertObjectValueToString(obj) {
 }
 });
 
-function displayFormData2() {
+function displayFormData2(callback) {
     // outputContainerからp要素を取得
     const paragraphElements = document.getElementById("outputContainer").getElementsByTagName("p");
 
@@ -414,45 +414,55 @@ function displayFormData2() {
     }
 
     console.log(requestData); // デバッグ用
+
+    // コールバック関数が指定されていれば呼び出す
+    if (callback) {
+        callback(requestData);
+    }
 }
 
-
-
-  
 // "update" ボタンのクリックイベント
-  document.getElementById("update").addEventListener("click", function() {
+document.getElementById("update").addEventListener("click", function() {
     const urlParams = new URLSearchParams(window.location.search);
-    //const rowId = urlParams.get('rowId');
     const rowId = Number(urlParams.get('rowId'));
     const tableName = urlParams.get('tableName');
-  　console.log(rowId+" "+tableName);
-    
+    console.log(rowId + " " + tableName);
+
     const confirmation = confirm("更新しますか？");
 
     if (confirmation) {
-      const requestData = displayFormData2();
-      console.log(requestData);
-        
-      $.ajax({
-      url: "https://zckb4ngkad.execute-api.us-east-2.amazonaws.com/up_post/update_post",
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify({"updateTargetId": rowId, "tableName" : tableName, requestData}),
-      success: function () {
-        // データを取得した後に populateTable 関数を呼び出す
-        console.log("削除に成功しました。");
-        document.getElementById("resultMessage").innerHTML = "更新に成功しました。";
-        document.getElementById("resultMessage").style.color = "green"; 
-      },
-      error: function (error) {
-        console.error("データの取得に失敗しました: " + error);
-        document.getElementById("resultMessage").innerHTML = "更新に失敗しました。";
-        document.getElementById("resultMessage").style.color = "red"; 
-      }
-      });
-  }
-    
-  });
+        // 非同期処理が完了した後に実行するコールバック関数
+        const updateCallback = function(requestData) {
+            console.log(requestData);
+
+            $.ajax({
+                url: "https://zckb4ngkad.execute-api.us-east-2.amazonaws.com/up_post/update_post",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({
+                    "updateTargetId": rowId,
+                    "tableName": tableName,
+                    "requestData": requestData
+                }),
+                success: function() {
+                    // データを取得した後に populateTable 関数を呼び出す
+                    console.log("削除に成功しました。");
+                    document.getElementById("resultMessage").innerHTML = "更新に成功しました。";
+                    document.getElementById("resultMessage").style.color = "green";
+                },
+                error: function(error) {
+                    console.error("データの取得に失敗しました: " + error);
+                    document.getElementById("resultMessage").innerHTML = "更新に失敗しました。";
+                    document.getElementById("resultMessage").style.color = "red";
+                }
+            });
+        };
+
+        // 非同期処理が完了した後にコールバック関数を実行する
+        displayFormData2(updateCallback);
+    }
+});
+
 
   // "delete" ボタンのクリックイベント
   document.getElementById("delete").addEventListener("click", function() {
