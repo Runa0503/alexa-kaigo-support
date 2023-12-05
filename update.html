@@ -392,28 +392,31 @@ function convertObjectValueToString(obj) {
 
   // "delete" ボタンのクリックイベント
   document.getElementById("delete").addEventListener("click", function() {
-    // ここに delete ボタンがクリックされたときの処理を追加
-    alert("Delete ボタンがクリックされました");
+    const urlParams = new URLSearchParams(window.location.search);
+    const rowId = urlParams.get('rowId');
+    const tableName = urlParams.get('tableName');
+  　console.log(rowId+" "+tableName);
+    
     const confirmation = confirm("本当に削除しますか？");
 
-    if (confirmation) {
-  $.ajax({
-  url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
-  type: "POST",
-  dataType: "json",
-  data: JSON.stringify({"deleteTargetId": rowId, "tableName" : tableName}),
-  success: function () {
-    // データを取得した後に populateTable 関数を呼び出す
-    console.log("削除に成功しました。");
-    document.getElementById("resultMessage").innerHTML = "削除が成功しました。";
-    document.getElementById("resultMessage").style.color = "green"; 
-  },
-  error: function (error) {
-    console.error("データの取得に失敗しました: " + error);
-    document.getElementById("resultMessage").innerHTML = "削除に失敗しました。";
-    document.getElementById("resultMessage").style.color = "red"; 
-  }
-  });
+  if (confirmation) {
+    $.ajax({
+    url: "https://02yh1rj6ub.execute-api.us-east-2.amazonaws.com/delete_post/deleteDBKey",
+    type: "POST",
+    dataType: "json",
+    data: JSON.stringify({"deleteTargetId": rowId, "tableName" : tableName}),
+    success: function () {
+      // データを取得した後に populateTable 関数を呼び出す
+      console.log("削除に成功しました。");
+      document.getElementById("resultMessage").innerHTML = "削除が成功しました。";
+      document.getElementById("resultMessage").style.color = "green"; 
+    },
+    error: function (error) {
+      console.error("データの取得に失敗しました: " + error);
+      document.getElementById("resultMessage").innerHTML = "削除に失敗しました。";
+      document.getElementById("resultMessage").style.color = "red"; 
+    }
+    });
   }
   });
 
