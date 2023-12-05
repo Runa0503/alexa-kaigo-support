@@ -364,7 +364,7 @@ function displayFormData(data) {
         const propertyValue = convertObjectValueToString(item[propertyName]);
 
         const paragraphElement = document.createElement('p');
-        paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}" readonly>`;
+        paragraphElement.innerHTML = `<strong>${propertyName}</strong>: <input type="text" value="${propertyValue}">`;
 
         document.getElementById("outputContainer").appendChild(paragraphElement);
     }
