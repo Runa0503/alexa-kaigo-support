@@ -471,6 +471,19 @@
                     }
                 });
             });
+
+            function createFeelingChartData(feelingData) {
+                var labels = Object.keys(feelingData);
+                var values = Object.values(feelingData);
+            
+                return {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
+                    }],
+                };
+            }          
             // チャート描画
             function drawFeelingChart(data) {
                 var ctx = document.getElementById('feelingChart').getContext('2d');
@@ -534,18 +547,8 @@
                         }
                     }
                 }
-            
                 // チャート描画
                 drawFeelingChart(feelingData);
-            
-                // return文の位置を修正
-                return {
-                    labels: labels,
-                    datasets: [{
-                        data2: values,
-                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
-                    }],
-                };
             }
         });
         </script>
