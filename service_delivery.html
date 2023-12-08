@@ -506,12 +506,13 @@ $(document).ready(function () {
         row.append("<td class='henka'>変化" + item.user_situation.S + "</td>"); //利用者状況
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
+        var bikou; // bikou 変数を条件分岐の前で宣言
         if (item && item.bikou && item.bikou.S) {
-          var bikou = item.service.S;
-          console.log(bikou);
-            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(bikou)'>" + item.bikou.S + "</a></td>");
+            bikou = item.service.S; // bikou 変数に値を代入
+            console.log(bikou);
+            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(\"" + bikou + "\")'>" + item.bikou.S + "</a></td>");
         } else {
-          var bikou = "-";
+            bikou = "-";
             row.append("<td>-</td>");
         }
         row.append("<td>" + item.timestamp.S + "</td>"); // 日付
