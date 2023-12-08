@@ -352,6 +352,7 @@
               <th scope="col">サービス実施の効果</th>
               <th scope="col">計画変更の有無</th>
               <th scope="col">日付</th>
+              <th scope="col">記録者</th>
             </tr>
           </thead>
 
@@ -372,7 +373,7 @@ $(document).ready(function () {
   // URLからクエリパラメータを取得
       const urlParams = new URLSearchParams(window.location.search);
       // user_idパラメータの値を取得
-      const userId = urlParams.get('user_id');
+      var userId = urlParams.get('user_id');
 
    $("#mo").on("click", function(e) {
         e.preventDefault(); // デフォルトの遷移を防ぐ
@@ -485,7 +486,7 @@ $(document).ready(function () {
       var item = data.scanData.Items[i];
         console.log(item.service.S);
       // カテゴリーが選択されたものであるかを確認する条件を追加
-      if(item.user_id.S == userId || item.user_id.S != userId){
+      if(item.user_id.S == userId || userId == "all"){
         console.log(item.user_id.S+"="+userId);
         if (selectedCategory === 'all' || item.service.S === selectedCategory) {
           var row = $("<tr>");
