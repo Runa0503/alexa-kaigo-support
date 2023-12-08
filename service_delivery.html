@@ -351,6 +351,7 @@
               <th scope="col">利用者の状況</th>
               <th scope="col">サービス実施の効果</th>
               <th scope="col">計画変更の有無</th>
+              <th scope="col">計画変更の有無</th>
               <th scope="col">日付</th>
               <th scope="col">記録者</th>
             </tr>
@@ -499,6 +500,11 @@ $(document).ready(function () {
         row.append("<td class='henka'>変化" + item.user_situation.S + "</td>"); //利用者状況
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
+        if (item.bikou.S) {
+            row.append("<td>" + item.bikou.S + "</td>");
+        } else {
+            row.append("<td>-</td>");
+        }
         row.append("<td>" + item.timestamp.S + "</td>"); // 日付
         row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
   
