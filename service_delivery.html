@@ -479,8 +479,6 @@ $(document).ready(function () {
       if(bikou == "配食"){
         alert("食に関する高齢者の情報は、「日常生活.10, 健康管理.22.24.25」からご確認いただけます。");
       }
-    
-      
   }
 
   function populateTable(data, selectedCategory) {
@@ -510,9 +508,11 @@ $(document).ready(function () {
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
         if (item && item.bikou && item.bikou.S) {
-          var bikou = item.bikou.S;
+          var bikou = item.service.S;
+          console.log(bikou);
             row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(bikou)'>" + item.bikou.S + "</a></td>");
         } else {
+          var bikou = "-";
             row.append("<td>-</td>");
         }
         row.append("<td>" + item.timestamp.S + "</td>"); // 日付
@@ -528,6 +528,10 @@ $(document).ready(function () {
             row.find("td.henka").css("background-color", "#E6B6B0");
         }
         if (item.necessity_planchange.S=="あり") {
+            //row.find("td.plan").css("background-color", "#B0CCE6");
+            row.find("td.plan").css("background-color", "#E6B6B0");
+        }
+        if (bikou!="-") {
             //row.find("td.plan").css("background-color", "#B0CCE6");
             row.find("td.plan").css("background-color", "#E6B6B0");
         }
