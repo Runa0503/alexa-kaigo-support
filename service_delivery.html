@@ -474,16 +474,16 @@ $(document).ready(function () {
     });
   });
 
-  function displayMessage(bikou) {
+  function populateTable(data, selectedCategory) {
+    // テーブルの内容をクリア
+    tableBody.empty();
+
+    function displayMessage(bikou) {
     alert("カーソルがリンクにホバーされました！");
       if(bikou == "配食"){
         alert("食に関する高齢者の情報は、「日常生活.10, 健康管理.22.24.25」からご確認いただけます。");
       }
   }
-
-  function populateTable(data, selectedCategory) {
-    // テーブルの内容をクリア
-    tableBody.empty();
 
     // timestamp でデータをソート
     data.scanData.Items.sort(function(a, b) {
