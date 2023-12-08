@@ -376,7 +376,7 @@
             // URLからクエリパラメータを取得
             const urlParams = new URLSearchParams(window.location.search);
             // user_idパラメータの値を取得
-            const userId = urlParams.get('user_id');
+            var userId = urlParams.get('user_id');
         
             $("#mo").on("click", function(e) {
                 e.preventDefault(); // デフォルトの遷移を防ぐ
