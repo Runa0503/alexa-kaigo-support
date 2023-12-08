@@ -490,6 +490,10 @@
             // チャート描画
             function drawFeelingChart(data) {
                 var ctx = document.getElementById('feelingChart').getContext('2d');
+                // canvas要素を取得
+                var canvasElement = document.getElementById("feelingChart");
+                // style属性を削除
+                canvasElement.removeAttribute("style");
                 
                 // 以前のChartオブジェクトが存在する場合、破棄
                 if (myPieChart) {
