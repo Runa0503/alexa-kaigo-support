@@ -353,6 +353,7 @@
                 <th scope="col">適切におこなわれたか</th>
                 <th scope="col">満足度</th>
                 <th scope="col">日付</th>
+                <th scope="col">利用者名</th>
               </tr>
             </thead>
             <tbody>
@@ -373,9 +374,9 @@
             var tableBody = $("#data-table tbody");
         
             // URLからクエリパラメータを取得
-                const urlParams = new URLSearchParams(window.location.search);
-                // user_idパラメータの値を取得
-                const userId = urlParams.get('user_id');
+            const urlParams = new URLSearchParams(window.location.search);
+            // user_idパラメータの値を取得
+            const userId = urlParams.get('user_id');
         
             $("#mo").on("click", function(e) {
                 e.preventDefault(); // デフォルトの遷移を防ぐ
@@ -516,6 +517,7 @@
                   console.log('User ID:', userId);
               } else {
                   console.error('User ID not found in the URL.');
+                  userId = "all";
               }
           
               // timestamp でデータをソート
@@ -526,7 +528,7 @@
               for (var i = 0; i < data.scanData.Items.length; i++) {
                   var item = data.scanData.Items[i];
           
-                  if (item.user_id.S == userId || item.user_id.S != userId) {
+                  if (item.user_id.S == userId || item.user_id.S == "all") {
                       console.log(item.user_id.S + "=" + userId);
                       if (selectedCategory === 'all' || item.service.S === selectedCategory) {
                           var row = $("<tr>");
