@@ -422,7 +422,7 @@ $(document).ready(function () {
   // URLからクエリパラメータを取得
   const urlParams = new URLSearchParams(window.location.search);
   // user_idパラメータの値を取得
-  const userId = urlParams.get('user_id');
+  var userId = urlParams.get('user_id');
   console.log(userId);
 
    $("#mo").on("click", function(e) {
