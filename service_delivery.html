@@ -367,10 +367,12 @@ function submitFormAndRedirect(rowId) {
       // リダイレクト先のURL
       window.location.href = "./update.html?rowId=" + encodeURIComponent(rowId)+"&tableName="+encodeURIComponent('ServiceDelivery');
   }
-function displayMessage(bikou) {
-    alert("カーソルがリンクにホバーされました！");
-      if(bikou == "配食"){
+function displayMessage(bikou, savi) {
+      if(savi == "配食"){
         alert("食に関する高齢者の情報は、「日常生活.10, 健康管理.22.24.25」からご確認いただけます。");
+      }
+      else if(savi == "宅配"){
+       alert("外出・買い物に関する高齢者の情報は、「 運動・移動.1, 日常生活.8」からご確認いただけます。");
       }
   }
 
@@ -507,10 +509,12 @@ $(document).ready(function () {
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
         var bikou; // bikou 変数を条件分岐の前で宣言
+        var savi;
         if (item && item.bikou && item.bikou.S) {
-            bikou = item.service.S; // bikou 変数に値を代入
+            bikou = item.bikou.S; // bikou 変数に値を代入
+            savi = item.service.S;
             console.log(bikou);
-            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(\"" + bikou + "\")'>" + item.bikou.S + "</a></td>");
+            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(\"" + bikou + "\", \"" + savi + "\")'>" + item.bikou.S + "</a></td>");
         } else {
             bikou = "-";
             row.append("<td>-</td>");
