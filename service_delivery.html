@@ -351,7 +351,7 @@
               <th scope="col">利用者の状況</th>
               <th scope="col">サービス実施の効果</th>
               <th scope="col">計画変更の有無</th>
-              <th scope="col">計画変更の有無</th>
+              <th scope="col">備考</th>
               <th scope="col">日付</th>
               <th scope="col">記録者</th>
             </tr>
@@ -474,6 +474,15 @@ $(document).ready(function () {
     });
   });
 
+  function displayMessage(bikou) {
+    alert("カーソルがリンクにホバーされました！");
+      if(bikou == "配食"){
+        alert("食に関する高齢者の情報は、「日常生活.10, 健康管理.22.24.25」からご確認いただけます。");
+      }
+    
+      
+  }
+
   function populateTable(data, selectedCategory) {
     // テーブルの内容をクリア
     tableBody.empty();
@@ -500,8 +509,9 @@ $(document).ready(function () {
         row.append("<td class='henka'>変化" + item.user_situation.S + "</td>"); //利用者状況
         row.append("<td>" + item.effects_service.S + "</td>"); //効果
       　row.append("<td class='plan'>" + item.necessity_planchange.S + "</td>"); //計画変更
-        if (item.bikou.S) {
-            row.append("<td>" + item.bikou.S + "</td>");
+        if (item && item.bikou && item.bikou.S) {
+          var bikou = item.bikou.S;
+            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(bikou)'>" + item.bikou.S + "</a></td>");
         } else {
             row.append("<td>-</td>");
         }
