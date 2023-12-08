@@ -514,7 +514,7 @@ $(document).ready(function () {
             bikou = item.bikou.S; // bikou 変数に値を代入
             savi = item.service.S;
             console.log(bikou);
-            row.append("<td><a href='./assessment_info.html' onmouseover='displayMessage(\"" + bikou + "\", \"" + savi + "\")'>" + item.bikou.S + "</a></td>");
+            row.append("<td class='bikou'><a href='./assessment_info.html' onmouseover='displayMessage(\"" + bikou + "\", \"" + savi + "\")'>" + item.bikou.S + "</a></td>");
         } else {
             bikou = "-";
             row.append("<td>-</td>");
@@ -537,7 +537,7 @@ $(document).ready(function () {
         }
         if (bikou!="-") {
             //row.find("td.plan").css("background-color", "#B0CCE6");
-            row.find("td.plan").css("background-color", "#E6B6B0");
+            row.find("td.bikou").css("background-color", "#E6B6B0");
         }
           
         tableBody.append(row);
