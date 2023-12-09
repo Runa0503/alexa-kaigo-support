@@ -486,6 +486,14 @@ $(document).ready(function () {
     // テーブルの内容をクリア
     tableBody.empty();
 
+    if (userId) {
+                  // ここにuser_idを使った処理を追加
+                  console.log('User ID:', userId);
+              } else {
+                  console.error('User ID not found in the URL.');
+                  userId = "all";
+              }
+
     // timestamp でデータをソート
     data.scanData.Items.sort(function(a, b) {
       return new Date(b.timestamp.S) - new Date(a.timestamp.S);
