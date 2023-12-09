@@ -540,13 +540,17 @@
                           // 各データプロパティをセルに追加
                           row.append("<td>" + item.id.N + "</td>"); // 連番ID
                           row.append("<td>" + item.service.S + "</td>"); // サービス
-                          row.append("<td>" + item.quality.S + "</td>"); // 適切か
+                          row.append("<td class='teki'>" + item.quality.S + "</td>"); // 適切か
                           row.append("<td>" + item.feeling.S + "</td>"); // 満足度
                           row.append("<td>" + item.timestamp.S + "</td>"); // 日付
                           row.append("<td>" + item.user_id.S + "</td>"); // 日付
                           row.append("<td><button type='button' class='btn btn-secondary' onclick='submitFormAndRedirect(" + item.id.N + ")'>編集</button></td>"); // Nameプロパティ
           
                           // 他の列を追加する場合は、ここに追加
+                        if (item.quality.S=="いいえ") {
+                            //row.find("td.henka").css("background-color", "#B0CCE6");
+                            row.find("td.teki").css("background-color", "#E6B6B0");
+                        }
           
                           tableBody.append(row);
           
